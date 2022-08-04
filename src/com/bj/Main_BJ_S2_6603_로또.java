@@ -1,31 +1,70 @@
 package com.bj;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Main_BJ_S2_6603_로또 {
-	
-	public static void permutations() {
-		
-	}
 
-	public static void main(String[] args) throws Exception{
+	static int[] nums;
+	static int cnt;
+	static boolean[] visited;
+	static ArrayList<String> memo;
 
-		Scanner sc = new Scanner(System.in);
-		int cnt = sc.nextInt();
-		while(cnt != 0) {
-			int[] nums = new int[cnt];
+	public static void combi(int cnt, int s) {
+		if (cnt >= 6) {
+			String check = "";
+			StringBuilder sb = new StringBuilder();
 			
-			for(int i=0; i<cnt; i++) {
-				nums[i] = sc.nextInt();
+			for (int i = 0; i < nums.length; i++) {
+				if (visited[i]) {
+					sb.append(nums[i] + " ");
+					check += nums[i];
+				}
 			}
 			
-			System.out.println(Arrays.toString(nums));
+			//contains는 주소값 비교가 아니라 문자열 동등비교!
+			if(memo.contains(check)) {
+				return;
+			} else {
+				memo.add(check);
+				System.out.println(sb.toString().trim());
+			}
 			
-			cnt = sc.nextInt();
+			return;
+		} else {
+			//이렇게 할 경우
+			for (int i = s; i < nums.length; i++) {
+				if (visited[i])
+					continue;
+				visited[i] = true;
+				combi(cnt + 1, s + 1);
+				visited[i] = false;
+
+			}
 		}
-		
+	}
+
+	public static void main(String[] args) throws Exception {
+
+		Scanner sc = new Scanner(System.in);
+		cnt = sc.nextInt();
+		while (cnt != 0) {
+			nums = new int[cnt];
+			visited = new boolean[cnt];
+			memo = new ArrayList<>();
+
+			for (int i = 0; i < cnt; i++) {
+				nums[i] = sc.nextInt();
+			}
+
+			combi(0, 0);
+
+			cnt = sc.nextInt();
+			System.out.println();
+		}
+
 		sc.close();
-	}//main
-}//class
+	}// main
+}// class
