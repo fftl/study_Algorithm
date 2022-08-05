@@ -3,7 +3,7 @@ package com.bj;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main_BJ_B1_2309_일곱난쟁이 {
+public class Main_BJ_2309_B1_일곱난쟁이 {
 
 	public static void main(String[] args) {
 

@@ -2,7 +2,7 @@ package com.bj;
 
 import java.util.Scanner;
 
-public class Main_BJ_S1_11729_하노이탑이동순서 {
+public class Main_BJ_11729_S1_하노이탑이동순서 {
 	
 	public static StringBuilder sb = new StringBuilder();
 	 

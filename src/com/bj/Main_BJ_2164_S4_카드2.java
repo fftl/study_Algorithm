@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Main_BJ_S4_2164_카드2 {
+public class Main_BJ_2164_S4_카드2 {
 
 	public static void main(String[] args) {
 
@@ -31,8 +31,8 @@ public class Main_BJ_S4_2164_카드2 {
 			int a = q.poll();
 			q.offer(a);
 		}
-		System.out.println(q.peek());
 		
+		System.out.println(q.peek());
 		sc.close();
 	}
 

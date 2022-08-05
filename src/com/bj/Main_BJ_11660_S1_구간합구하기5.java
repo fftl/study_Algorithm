@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main_BJ_S1_11660_구간합구하기5 {
+public class Main_BJ_11660_S1_구간합구하기5 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

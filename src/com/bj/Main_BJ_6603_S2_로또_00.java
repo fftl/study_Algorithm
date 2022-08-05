@@ -2,7 +2,7 @@ package com.bj;
 
 import java.util.Scanner;
 
-public class Main_BJ_S2_6603_로또_00 {
+public class Main_BJ_6603_S2_로또_00 {
 
 	static int[] nums;
 	static int[] results;

@@ -3,7 +3,7 @@ package com.bj;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main_BJ_S3_1244_스위치켜고끄기 {
+public class Main_BJ_1244_S3_스위치켜고끄기 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

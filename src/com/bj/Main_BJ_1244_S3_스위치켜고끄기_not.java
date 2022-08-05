@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main_BJ_S3_1244_스위치켜고끄기_not {
+public class Main_BJ_1244_S3_스위치켜고끄기_not {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		// TODO Auto-generated method stub

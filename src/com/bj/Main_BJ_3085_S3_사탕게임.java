@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class Main_BJ_S3_3085_사탕게임 {
+public class Main_BJ_3085_S3_사탕게임 {
 	
 	//우측 아래측 방향 두 가지만 판단해도 모든 인접 사탕을 확인할 수 있기 때문에 이렇게 진행을 하였습니다.
 	static int[] dx = { 0, 1 };

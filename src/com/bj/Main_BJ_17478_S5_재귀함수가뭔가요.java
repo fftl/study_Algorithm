@@ -3,7 +3,7 @@ package com.bj;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main_BJ_S5_17478_재귀함수가뭔가요 {
+public class Main_BJ_17478_S5_재귀함수가뭔가요 {
 	
 	static StringBuilder sb;
 	static int T;

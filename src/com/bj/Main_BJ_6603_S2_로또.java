@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class Main_BJ_S2_6603_로또 {
+public class Main_BJ_6603_S2_로또 {
 
 	static int[] nums;
 	static int cnt;
