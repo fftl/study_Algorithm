@@ -27,6 +27,7 @@ public class Main_BJ_10974_S3_모든순열 {
 		}
 	}
 	
+	//visited를 이용해서 방문처리를 이용한 순열을 구했습니다.
 	public static void main(String[] args) throws Exception{
 
 		sb = new StringBuilder();

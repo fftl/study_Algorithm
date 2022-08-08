@@ -10,6 +10,7 @@ public class Main_BJ_1182_S2_부분수열의합 {
 	static void sumCheck(boolean[] visited) {
 		int sum = 0;
 		int cnt = 0;
+		
 		for (int i = 0; i < arr.length; i++) {
 			if (visited[i]) {
 				sum += arr[i];
@@ -22,13 +23,14 @@ public class Main_BJ_1182_S2_부분수열의합 {
 		if (sum == S) {
 			result++;
 		}
-		;
 
 		return;
 	}
 
+	//부분집합 구하기!
 	static void go(boolean[] visited, int cnt) {
 		if (cnt == N) {
+			System.out.println(Arrays.toString(visited));
 			sumCheck(visited);
 			return;
 		}
@@ -41,6 +43,7 @@ public class Main_BJ_1182_S2_부분수열의합 {
 
 	}
 
+	
 	public static void main(String[] args) throws Exception {
 
 		Scanner sc = new Scanner(System.in);
@@ -49,7 +52,7 @@ public class Main_BJ_1182_S2_부분수열의합 {
 		result = 0;
 
 		arr = new int[N];
-
+		
 		for (int i = 0; i < N; i++) {
 			arr[i] = sc.nextInt();
 		}
