@@ -1,4 +1,4 @@
-package com.ssafy.before;
+package com.sw;
 
 import java.util.Scanner;
  
@@ -6,51 +6,8 @@ import java.util.Scanner;
    사용하는 클래스명이 Solution 이어야 하므로, 가급적 Solution.java 를 사용할 것을 권장합니다.
    이러한 상황에서도 동일하게 java Solution 명령으로 프로그램을 수행해볼 수 있습니다.
  */
-public class 서울_13반_이동민_1979
+public class Solution_SW_D2_1959_두개의숫자열
 {
-	public static int checkCol(int k, int n, int[][] arr){
-        int result = 0;
-        for(int i=0; i<n; i++){
-            int cnt = 0;
-            for(int j=0; j<n; j++){
-                if(arr[i][j] == 1){
-                    cnt++;
-                } else {
-                    if(cnt == k){
-                        result++;
-                    }
-                    cnt = 0;
-                }
-            }
-             
-            if(cnt == k){
-                result++;
-            }
-        }
-        return result;
-    }
-     
-    public static int checkRow(int k, int n, int[][] arr){
-        int result = 0;
-        for(int i=0; i<n; i++){
-            int cnt = 0;
-            for(int j=0; j<n; j++){
-                if(arr[j][i] == 1){
-                    cnt++;
-                } else {
-                    if(cnt == k){
-                        result++;
-                    }
-                    cnt = 0;
-                }
-            }
-            if(cnt == k){
-                result++;
-            }
-             
-        }
-        return result;
-    }
     public static void main(String args[]) throws Exception
     {
         /*
@@ -74,21 +31,48 @@ public class 서울_13반_이동민_1979
  
         for(int test_case = 1; test_case <= T; test_case++)
         {
+            int result = 0;
             int n = sc.nextInt();
-            int k = sc.nextInt();
+            int m = sc.nextInt();
              
-            int[][] arr = new int[n][n];
+            int[] narr = new int[n];
+            int[] marr = new int[m];
              
             for(int i=0; i<n; i++){
-                for(int j=0; j<n; j++){
-                    arr[i][j] = sc.nextInt();
+                narr[i] = sc.nextInt();
+            }
+             
+            for(int i=0; i<m; i++){
+                marr[i] = sc.nextInt();
+            }
+             
+            int idx = 0;
+            if(n>m){
+                while(idx+m<=n){
+                        int now = 0;
+                        for(int i=idx; i<idx+m; i++){
+                            now += narr[i] * marr[i-idx];
+                        }
+                        if(now>result) result = now;
+                        idx++;
+                }
+            } else if(m>n){
+                while(idx+n<=m){
+                        int now = 0;
+                        for(int i=idx; i<idx+n; i++){
+                            now += narr[i-idx] * marr[i];
+                        }
+                        if(now>result) result = now;
+                        idx++;
+                }
+            } else {
+                int now = 0;
+                for(int i=0; i<n; i++){
+                    now += narr[i] * marr[i];
                 }
             }
              
-            int result = checkCol(k, n, arr) + checkRow(k, n, arr);
-            System.out.println("#"+test_case+" "+result);
-             
- 
+            System.out.println("#" + test_case + " " + result);
         }
         
         sc.close();
