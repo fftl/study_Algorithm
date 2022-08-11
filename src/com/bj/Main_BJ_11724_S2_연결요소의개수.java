@@ -36,51 +36,31 @@ public class Main_BJ_11724_S2_연결요소의개수 {
 
 			map.get(key).add(val);
 			map.get(val).add(key);
+		}
 
-		} // for i
-			// 입력받기 끝//
-		/*
-		 * tc 5 1 2 3 //정점의 개수가 N이라고 해서 1 ~ N 까지의 정점이 꼭 모두 존재한다는 보장은 없었따!
-		 * NullPointerExecption.. int result = 0; Queue<Integer> q = new LinkedList<>();
-		 * for(int i=1; i<=N; i++) { if(visited[i]) continue; q.add(i);
-		 * 
-		 * while(!q.isEmpty()) { int temp = q.poll(); if(!visited[temp]) { visited[temp]
-		 * = true; for(int n : map.get(temp)) { if(!visited[n]) q.add(n); } } }
-		 * result++; }
-		 */
-		// 어디가 틀렸을까요
+		System.out.println(map.toString());
+		
 		int result = 0;
 		Queue<Integer> q = new LinkedList<>();
-		for (int i : map.keySet()) { // map에 존재하는 key들을 하나씩 반환
-			if (visited[i])
-				continue; // 이미 방문한 곳이면 검사 불필요 skip
-			q.add(i); // 아니라면 q에 넣고 while 시작
-//			while(!q.isEmpty()) {
-//				System.out.println(q.toString());
-//				int temp = q.poll();	//맨앞에 데이터를 꺼내서
-//				if(!visited[temp]) {	//해당 노드에 방문하지 않았다면
-//					visited[temp] = true;	//방문처리
-//					for(int n : map.get(temp)) {	//해당 노드에서 갈 수 있는 곳들을
-//						if(!visited[n]) q.add(n);	//방문하지 않았따면 추가!
-//					}
-//				}
-//			}
-			//-------------
-			visited[i] = true;
+		for (int i : map.keySet()) {  // map에 존재하는 key들을 하나씩 반환
+			if (visited[i]) continue; // 이미 방문한 곳이면 검사 불필요 skip
+			
+			q.add(i); 			//방문한적이 없다면 q에 넣고 bfs 시작
+			visited[i] = true;	//방문표시
 			while (!q.isEmpty()) {
-				System.out.println(q.toString());
-				int temp = q.poll(); // 맨앞에 데이터를 꺼내서
+				int temp = q.poll(); 		  // 맨앞에 데이터를 꺼내서
 				for (int n : map.get(temp)) { // 해당 노드에서 갈 수 있는 곳들을
 					if (!visited[n]) {
-						q.add(n); // 방문하지 않았따면 추가!
-						visited[n] = true;
+						q.add(n);   		  // 방문하지 않았따면 추가!
+						visited[n] = true; 	  // q에 넣어주며 바로 방문표시를 하여 한번 갔던곳을 또 가지 않도록 합니다.
 					}
 				}
 			}
 			result++;
 		}
 
-		// 간선을 가지고 있지 않은 노드들도, 각각의 요소라고 인정해주어야 합니다.
+		// 간선을 가지고 있지 않아 최초의 map 에 포함되지 않은 정점들도 각각이 하나의 요소이므로
+		// 개수를 세어줍니다.
 		for (int i = 1; i < N + 1; i++) {
 			if (!visited[i] && map.get(i) == null)
 				result++;
