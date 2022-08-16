@@ -7,16 +7,19 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class Main_BJ_00 {
-
+public class Main_BJ_01052_S1_물병 {
+	static int N, K;
+	
 	public static void main(String[] args) throws Exception{
 
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		N = sc.nextInt();
+		K = sc.nextInt();
+		
+		
 		sc.close();
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		int t = Integer.parseInt(br.readLine());
+		
+		
 	}
 }
