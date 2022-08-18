@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
+//5 17
 public class Main_BJ_13913_G4_숨바꼭질4 {
 	
 	public static void main(String[] args) throws Exception{
@@ -27,7 +28,6 @@ public class Main_BJ_13913_G4_숨바꼭질4 {
 			return;
 		}
 		
-		//
 		if(N==K) {
 			sb.append(0+"\n");
 			sb.append(N);
@@ -46,7 +46,7 @@ public class Main_BJ_13913_G4_숨바꼭질4 {
 		int depth = 0;
 		boolean find = true;
 		while(find) {
-//			System.out.println(que.toString());
+			System.out.println(que.toString());
 			int size = que.size();
 			for (int i = 0; i < size; i++) {
 				ArrayList<Integer> arr = que.poll(); 

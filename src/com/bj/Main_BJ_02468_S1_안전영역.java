@@ -42,8 +42,12 @@ public class Main_BJ_02468_S1_안전영역 {
 			}			
 		}
 		
+		//now을 물의 높이라고 지정했습니다.
+		//물의 높이를 1씩 높이며 dfs로 를 이용해서 잠기는 부분들을 처리 해주고,
+		//영역의 개수를 세어주었습니다.
 		int now = 1;
 		while(now<max) {
+			//물에 잠기는 것을 표현!
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					if(board[i][j] <= now) {
@@ -51,6 +55,8 @@ public class Main_BJ_02468_S1_안전영역 {
 					}
 				}
 			}
+			
+			//이번 물이 잠기고 난 뒤의 영역의 개수를 세어줍니다. 
 			visited = new boolean[N][N];
 			cnt = 0;
 			for (int i = 0; i < N; i++) {
