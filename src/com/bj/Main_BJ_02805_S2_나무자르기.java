@@ -2,11 +2,7 @@ package com.bj;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_02805_S2_나무자르기 {
@@ -27,10 +23,8 @@ public class Main_BJ_02805_S2_나무자르기 {
 			max = Math.max(num, max);
 		}
 		
-		int[] memo = new int[max+1];
-		boolean[] visited = new boolean[max+1];
-
 		Arrays.sort(arr);
+		
 		int s = 0;
 		int e = max;
 		int mid = 0;
@@ -44,20 +38,14 @@ public class Main_BJ_02805_S2_나무자르기 {
 				}
 			}
 			
-			visited[mid] = true;
-			memo[mid] = (int) nowSum;
-			
-			if (nowSum == k) {
-				break;
-
-			} else if (nowSum > k) {
-				s = mid + 1;
+			if (nowSum < k) {
+				e = mid;
 
 			} else {
-				e = mid - 1;
+				s = mid+1;
 			}
 		}
 
-		System.out.println(mid);
+		System.out.println(s-1);
 	}
 }

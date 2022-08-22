@@ -3,10 +3,9 @@ package com.bj;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_01260_S2_DFS와BFS {
@@ -16,43 +15,14 @@ public class Main_BJ_01260_S2_DFS와BFS {
 	static ArrayList<ArrayList<Integer>> arr;
 
 	static void dfs(int cnt, int v) {
-		if (cnt == N) {
-			for (int i = 0; i < result.length; i++) {
-				System.out.print(result[i] + " ");
-			}
-			System.out.println();
-			return;
-		}
-
+		System.out.print(v+" ");
 		for (int i = 0; i < arr.get(v).size(); i++) {
 			int z = arr.get(v).get(i);
 			if (!visited[z]) {
 				visited[z] = true;
-				result[cnt] = z;
 				dfs(cnt + 1, z);
-				visited[z] = false;
 			}
 		}
-	}
-
-	static void bfs(int cnt, int v) {
-		Queue<Integer> q = new LinkedList<>();
-		q.add(v);
-		System.out.println(q.toString());
-		while (!q.isEmpty()) {
-			System.out.println(q.toString());
-			int n = q.poll();
-			for (int i = 0; i < arr.get(n).size(); i++) {
-				int z = arr.get(n).get(i);
-				if (!visited[z]) {
-					q.add(z);
-					result[cnt] = z;
-					cnt++;
-				}
-			}
-			
-		}
-		System.out.println();
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -62,7 +32,7 @@ public class Main_BJ_01260_S2_DFS와BFS {
 		M = Integer.parseInt(st.nextToken());
 		V = Integer.parseInt(st.nextToken());
 		arr = new ArrayList<>();
-		result = new int[N];
+		end = 0;
 
 		for (int i = 0; i <= N; i++) {
 			arr.add(new ArrayList<>());
@@ -75,22 +45,41 @@ public class Main_BJ_01260_S2_DFS와BFS {
 			arr.get(a).add(b);
 			arr.get(b).add(a);
 		}
+
+		for (int i = 0; i < arr.size(); i++) {
+			Collections.sort(arr.get(i));
+		}
+
+		// dfs run
+		visited = new boolean[N + 1];
+		visited[V] = true;
 		
-		System.out.println(arr.toString());
-
+		dfs(0, V);
+		System.out.println();
+		
+		// bfs run
 		visited = new boolean[N + 1];
 		visited[V] = true;
-		result = new int[N+1];
-		result[0] = V;
-		end = 0;
-//		dfs(1, V);
 
-		visited = new boolean[N + 1];
-		visited[V] = true;
-		result = new int[N+1];
-		result[0] = V;
-		bfs(1, V);
+		int cnt = 0;
+		Queue<Integer> q = new LinkedList<>();
+		q.add(V);
+		run: while (!q.isEmpty()) {
+			int size = q.size();
+			for (int i = 0; i < size; i++) {
+				int now = q.poll();
+				System.out.print(now + " ");
+				cnt++;
+				if (cnt == N)
+					break run;
 
+				for (int j = 0; j < arr.get(now).size(); j++) {
+					if (visited[arr.get(now).get(j)])
+						continue;
+					q.add(arr.get(now).get(j));
+					visited[arr.get(now).get(j)] = true;
+				}
+			}
+		}
 	}
-
 }
