@@ -18,21 +18,15 @@ public class Main_BJ_17135_G3_캐슬디펜스 {
 	static boolean[] visited;
 	
 	static void comb(int s, int cnt) {
-		if(cnt == 3) {
-			System.out.println("test");
-			System.out.println(Arrays.toString(visited));
-			int[] arr = new int[X];
-			for (int i = 0; i < visited.length; i++) {
-				if(visited[i]) arr[i] = 1; 
+			if(cnt == 3) {
+				combs.add(Arrays.copyOf(result, result.length));
+				return;
 			}
-			combs.add(arr);
-			return;
-		}
-		
-		for (int i = s; i < X; i++) {
-			visited[i] = true;
-			comb(i+1, 0);
-		}
+			
+			for (int i = s; i < X; i++) {
+				result[cnt] = i;
+				comb(i+1, cnt+1);
+			}
 	}
 	
 	static ArrayList<int[]> copy(ArrayList<int[]> monster){
@@ -66,10 +60,10 @@ public class Main_BJ_17135_G3_캐슬디펜스 {
 		
 		int[][] getMap = new int[Y][X];
 		int[][] map = new int[Y+1][X];
-		result = new int[X];
+		result = new int[3];
 		visited = new boolean[X];
 		combs = new ArrayList<>();
-		comb(0, 3);
+		comb(0, 0);
 		
 		//격자판을 입력받고
 		for (int i = 0; i < Y; i++) {
@@ -90,18 +84,9 @@ public class Main_BJ_17135_G3_캐슬디펜스 {
 			}
 		}
 		
-		int[][] comb ={ { 0, 1, 2 }, { 0, 2, 3 }, { 0, 1, 3 }, { 1, 2, 3 } };
-		
-		for(int c=0; c<4; c++) {
-			int[] ht = comb[c];
-			System.out.println("==================================");
-			System.out.println(Arrays.toString(ht));
+		for(int c=0; c<combs.size(); c++) {
+			int[] ht = combs.get(c);
 			ArrayList<int[]> nowMonster = copy(monster);
-			
-			for (int i = 0; i < nowMonster.size(); i++) {
-				System.out.print(Arrays.toString(nowMonster.get(i))+",");
-			}
-//			System.out.println();
 			
 			while(end(nowMonster)) {
 				Queue<Integer> q = new LinkedList<>();
@@ -134,10 +119,8 @@ public class Main_BJ_17135_G3_캐슬디펜스 {
 							}
 						}
 					}//for j
-					System.out.println(idx);
 					if(idx != -1) q.add(idx);
 				}//for i //궁수들이 쏠 몬스터를 다 정했다면
-				System.out.println(q.toString());
 				while(!q.isEmpty()) {
 					int mon = q.poll();
 					int[] target = nowMonster.get(mon);
