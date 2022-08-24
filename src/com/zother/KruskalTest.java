@@ -18,7 +18,7 @@ public class KruskalTest {
 			this.weight = weight;
 		}
 		
-		@Override
+		@Override	//가중치를 기준으로 오름차순 정렬을 해줍니다.
 		public int compareTo(Edge o) {
 //			return Integer.compare(this.weight, o.weight);
 			return this.weight - o.weight;

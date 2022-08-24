@@ -35,7 +35,7 @@ public class Main_BJ_13023_G5_ABCDE {
 			visited[nowArr.get(i)] = false;
 		}
 	}
-
+	
 	public static void main(String[] args) throws Exception {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
