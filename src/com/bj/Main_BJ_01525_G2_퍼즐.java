@@ -1,11 +1,15 @@
 package com.bj;
 
+<<<<<<< HEAD
 import java.util.LinkedList;
 import java.util.Queue;
+=======
+>>>>>>> d1976a2106867c21a00b059a242499d9a5daf462
 import java.util.Scanner;
 
 public class Main_BJ_01525_G2_퍼즐 {
 
+<<<<<<< HEAD
 	static int[] dy = {-1, 1, 0, 0};
 	static int[] dx = {0, 0, -1, 1};
 	static boolean[] visited;
@@ -76,6 +80,31 @@ public class Main_BJ_01525_G2_퍼즐 {
 		
 		if(n==32) System.out.println(-1);
 		else System.out.println(n);
+=======
+	public static void main(String[] args) throws Exception{
+
+		Scanner sc = new Scanner(System.in);
+		int[][] map = new int[3][3];
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				map[i][j] = sc.nextInt();
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+>>>>>>> d1976a2106867c21a00b059a242499d9a5daf462
 		sc.close();
 	}
 }
