@@ -72,7 +72,7 @@ public class Solution_SW_D4_03124_최소스패닝트리 {
 			});
 			
 			int cnt = 0;
-			int result = 0;
+			long result = 0;
 			for(Node n : nodes) {
 				if(union(n.s, n.e)) {
 					result += n.w;
