@@ -1,28 +1,18 @@
 package com.bj;
 
-<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-=======
->>>>>>> d1976a2106867c21a00b059a242499d9a5daf462
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main_BJ_01525_G2_퍼즐 {
 
-<<<<<<< HEAD
 	static int[] dy = {-1, 1, 0, 0};
 	static int[] dx = {0, 0, -1, 1};
-	static boolean[] visited;
-	
-	static void visit(String s) {
-		int n = Integer.parseInt(s);
-		visited[n] = true;
-	}
-	
-	static boolean check(String s) {
-		if(s.equals("123456780")) return true;
-		return false;
-	}
+	static HashSet<Integer> visited = new HashSet<>();
+//	static ArrayList<Integer> visited = new ArrayList<>();
 	
 	static int find(String s) {
 		for (int i = 0; i < s.length(); i++) {
@@ -42,20 +32,20 @@ public class Main_BJ_01525_G2_퍼즐 {
 			sb.append(sc.nextInt());
 		}
 		
-		visited = new boolean[1000000000];
-		visit(sb.toString());
+		if(sb.toString().equals("123456780")) {
+			System.out.println(0);
+			sc.close();
+			return;
+		}
 		
+		visited.add(Integer.parseInt(sb.toString()));
 		Queue<StringBuilder> q = new LinkedList<>();
 		q.add(sb);
 		int n = 0;
-		run : while(!q.isEmpty()) {
+		while(!q.isEmpty()) {
 			int size = q.size();
 			for (int i = 0; i < size; i++) {
 				StringBuilder now = q.poll();
-				if(check(now.toString())) {
-					break run;
-				}
-				
 				int idx = find(now.toString());
 				int y = idx/3;
 				int x = idx%3;
@@ -67,9 +57,15 @@ public class Main_BJ_01525_G2_퍼즐 {
 						char c = copy.charAt(ny*3+nx);
 						copy.setCharAt(ny*3+nx, '0');
 						copy.setCharAt(y*3+x, c);
-						int num = Integer.parseInt(copy.toString());
-						if(!visited[num]) {
-							visited[num] = true;
+						if(copy.toString().equals("123456780")){
+							n++;
+							System.out.println(n);
+							sc.close();
+							return;
+						}
+						
+						if(!visited.contains(Integer.parseInt(copy.toString()))) {
+							visited.add(Integer.parseInt(copy.toString()));
 							q.add(copy);
 						}
 					}
@@ -79,32 +75,6 @@ public class Main_BJ_01525_G2_퍼즐 {
 		}
 		
 		if(n==32) System.out.println(-1);
-		else System.out.println(n);
-=======
-	public static void main(String[] args) throws Exception{
-
-		Scanner sc = new Scanner(System.in);
-		int[][] map = new int[3][3];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				map[i][j] = sc.nextInt();
-			}
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
->>>>>>> d1976a2106867c21a00b059a242499d9a5daf462
 		sc.close();
 	}
 }
