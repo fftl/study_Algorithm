@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 public class Main_BJ_17136_G2_색종이붙이기 {
 	static int[][] map;
 	static int[] gets;
+	static int min;
 	
 	//덮을 수 있는지 체크
 	static boolean ableCheck(int y, int x, int k) {
@@ -55,6 +56,12 @@ public class Main_BJ_17136_G2_색종이붙이기 {
 	
 	static void dfs(int y, int x, int cnt) {
 		if(y == 9 && x == 9) {
+			min = Math.min(cnt, min);
+			return;
+		}
+		
+		if(y>9) {
+			dfs(y+1, 0, cnt);
 			return;
 		}
 		
@@ -62,11 +69,16 @@ public class Main_BJ_17136_G2_색종이붙이기 {
 			for (int i = 5; i>=1; i--) {
 				if(ableCheck(y, x, i)) {
 					dup(y, x, i, 1);
-					if(gets[i])
 					gets[i]--;
-					dfs(y+i, x, cnt+1);
+					dfs(y+1, x, cnt+1);
+					dup(y, x, i, 0);
 				}
 			}
+			
+		} else {
+			
+			dfs(y, x+1, cnt);
+			return;
 		}
 	}
 	
@@ -76,6 +88,7 @@ public class Main_BJ_17136_G2_색종이붙이기 {
 		
 		map = new int[10][10];
 		gets = new int[6];
+		min = Integer.MAX_VALUE;
 		
 		for (int i = 1; i < gets.length; i++) {
 			gets[i] = 5;
@@ -89,5 +102,6 @@ public class Main_BJ_17136_G2_색종이붙이기 {
 		}
 		
 		dfs(0, 0, 0);
+		
 	}
 }
