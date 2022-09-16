@@ -1,7 +1,5 @@
 package com.bj;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Main_BJ_10997_S2_별찍기 {

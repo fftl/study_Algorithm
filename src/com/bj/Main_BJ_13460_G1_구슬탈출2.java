@@ -2,7 +2,6 @@ package com.bj;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/board/view/90094 반례
