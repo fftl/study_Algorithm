@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class Main_BJ_20061_G2_모노도미노2 {
+public class Main_BJ_20061_G2_모노미노도미노2 {
 
 	public static void main(String[] args) throws Exception{
 		
