@@ -26,7 +26,6 @@ public class Main_BJ_21609_G2_상어중학교 {
 		public String toString() {
 			return "Group [sy=" + sy + ", sx=" + sx + ", rCnt=" + rCnt + ", points=" + points + "]";
 		}
-		
 	}
 
 	static int N, M, maxCnt, maxNum, result;
