@@ -13,6 +13,7 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[][] map;
 
+	//돌리기!
 	static void turn(int k) {
 		int m = (int) Math.pow(2, k);
 		int ms = m / 2;
@@ -22,6 +23,7 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 		for (int i = 0; i < n; i += m) {
 			for (int j = 0; j < n; j += m) {
 				
+				// 격자를 회전시켜줍니다!
 				for (int i2 = i, x=j+m-1; i2 < i+m; i2++, x--) {
 					for (int j2 = j, y=i; j2 < j+m; j2++, y++) {
 						copy[y][x] = map[i2][j2];
@@ -31,6 +33,7 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 			}
 		}
 		
+		//회전 된 copy 배열을 본 map에 덮어씌어줍니다.
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				map[i][j] = copy[i][j];
@@ -38,6 +41,8 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 		}
 	}
 
+	//녹이기!
+	//한번에 녹아야 하기 때문에 check에 담아두고 마지막에 한번에 녹여줍니다.
 	static void melt() {
 		boolean[][] check = new boolean[n][n];
 		for (int i = 0; i < n; i++) {
@@ -53,11 +58,14 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 						cnt++;
 					}
 				}
+				
+				//녹아야 할 것 담기
 				if (cnt < 3)
 					check[i][j] = true;
 			}
 		}
 
+		//한번에 녹이기
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (check[i][j])
@@ -66,6 +74,7 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 		}
 	}
 
+	//남아있는 얼음들 합!
 	static int cntAll() {
 		int sum = 0;
 		for (int i = 0; i < n; i++) {
@@ -76,11 +85,14 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 		return sum;
 	}
 
+	//bfs를 이용해서 가장 큰 덩어리 찾기
 	static int cntMax() {
 		int maxCnt = 0;
 		boolean[][] visited = new boolean[n][n];
 		Queue<int[]> q = new LinkedList<>();
 
+		//이중포문을 통해서 모든 곳의 모든 덩어리를 카운트 세며 확인하며
+		//maxCnt와 비교하며 최고값을 갱신시켜줍니다.
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (!visited[i][j] && map[i][j] > 0) {
@@ -131,6 +143,7 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 			}
 		}
 
+		//돌리고 녹이고 반복!
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < Q; i++) {
 			int k = Integer.parseInt(st.nextToken());
@@ -142,6 +155,7 @@ public class Main_BJ_20058_G4_마법사상어와파이어스톰_2 {
 		System.out.println(cntMax());
 	}
 
+	//출력해볼때!
 	static void print() {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {

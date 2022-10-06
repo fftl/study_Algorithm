@@ -40,7 +40,10 @@ public class Solution_PG_L3_자물쇠와열쇠 {
                 if(bigLock[i+kY][j+kX] == 1) cnt++;
             }
         }
+        
+        System.out.println(cnt);
 //        if( cnt == 9 ) return true;
+        if( cnt == lY*lY ) return true;
         
         for(int i=y, ci=0; i<y+copy.length; i++, ci++){
             for(int j=x, cj=0; j<x+copy[0].length; j++, cj++){
@@ -96,15 +99,11 @@ public class Solution_PG_L3_자물쇠와열쇠 {
             }
         }
         
-        System.out.println(Arrays.deepToString(bigLock));
-        
         for(int i=0; i<4; i++){
             turn();
-//            if(moving()){
-//                return true;
-//            }
-            System.out.println("================================================");
-            moving();
+            if(moving()){
+                return true;
+            }
         }
         
         return false;
