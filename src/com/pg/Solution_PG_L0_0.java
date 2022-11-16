@@ -1,6 +1,6 @@
 package com.pg;
 
-public class Solution_PG_L0 {
+public class Solution_PG_L0_0 {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(solution());
