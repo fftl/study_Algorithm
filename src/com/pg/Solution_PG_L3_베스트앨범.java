@@ -12,7 +12,9 @@ public class Solution_PG_L3_베스트앨범 {
     static HashMap<String, Integer> max;          //장르의 최대 재생수를 담을 맵
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(solution());
+		String[] genres = {"classic", "pop", "classic", "classic", "pop"};
+		int[] plays = {500, 600, 150, 800, 2500};
+		System.out.println(solution(genres, plays));
 	}
 
 	static int[] solution(String[] genres, int[] plays) {
