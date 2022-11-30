@@ -21,12 +21,13 @@ public class Main_BJ_01654_S2_랜선자르기 {
 			arr[i] =  num;
 		}
 		
-		long left = 0;
+		// 모두 0으로 변경
+		long left = 1; //0 -> 1
 		long right = max;
 		long result = 0;
 		long mid;
 		
-		while(left<=right) {
+		while(left<=right) { //< -> <=
 			mid = (left + right)/2;
 			if(mid == 0) break;
 			int cnt = 0;
