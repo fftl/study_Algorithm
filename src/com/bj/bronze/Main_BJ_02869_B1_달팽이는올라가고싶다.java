@@ -13,10 +13,12 @@ public class Main_BJ_02869_B1_달팽이는올라가고싶다 {
 		int a = Integer.parseInt(st.nextToken());
 		int b = Integer.parseInt(st.nextToken());
 		int v = Integer.parseInt(st.nextToken());
+
+		int day = (v-b) / (a-b);
+		if((v-b) % (a-b) != 0){
+			day++;
+		}
 		
-		int k = a-b;
-		int before = k*(v-1);
-		System.out.println(before);
-		
+		System.out.println(day);
 	}
 }
