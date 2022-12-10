@@ -2,7 +2,7 @@ package com.programmers;
 
 import java.util.Arrays;
 
-public class Solution_PG_L3_자물쇠와열쇠 {
+public class Solution_PG_L3_k_자물쇠와열쇠 {
 
 	public static void main(String[] args) throws Exception {
 		int[][] key = {{0, 0, 0}, {1, 0, 0}, {0, 1, 1}};

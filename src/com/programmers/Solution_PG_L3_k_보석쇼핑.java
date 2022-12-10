@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class Solution_PG_L3_보석쇼핑 {
+public class Solution_PG_L3_k_보석쇼핑 {
 
 	public static void main(String[] args) throws Exception {
 		String[] gems = {"DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE", "DIA"};

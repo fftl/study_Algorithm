@@ -1,6 +1,6 @@
 package com.programmers;
 
-public class Solution_PG_L3_코딩테스트공부 {
+public class Solution_PG_L3_k_코딩테스트공부 {
 
 	public static void main(String[] args) throws Exception {
 		int alp = 10;

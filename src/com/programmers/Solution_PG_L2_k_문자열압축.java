@@ -3,7 +3,7 @@ package com.programmers;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Solution_PG_L2_문자열압축 {
+public class Solution_PG_L2_k_문자열압축 {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(solution("abcabcabcabcdededededede"));

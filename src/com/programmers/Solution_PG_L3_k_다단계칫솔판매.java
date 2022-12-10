@@ -3,7 +3,7 @@ package com.programmers;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Solution_PG_L3_다단계칫솔판매 {
+public class Solution_PG_L3_k_다단계칫솔판매 {
     static HashMap<String, String> parent; //부모 관계를 담아줄 맵
     static HashMap<String, Integer> pay;   //현재 판매원의 이익을 담을 맵
 
