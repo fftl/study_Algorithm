@@ -2,7 +2,7 @@ package com.programmers;
 
 import java.util.HashMap;
 
-public class Solution_PG_L1_숫자문자열과영단어 {
+public class Solution_PG_L1_k_숫자문자열과영단어 {
 
 	public static void main(String[] args) throws Exception {
 		String s = "2three45sixseven";
