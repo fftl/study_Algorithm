@@ -64,7 +64,6 @@ public class Main_BJ_01167_G2_트리의지름2 {
 		result = 0;
 
 		nodes = new ArrayList<>();
-
 		for (int i = 0; i <= N; i++) {
 			nodes.add(new ArrayList<>());
 		}

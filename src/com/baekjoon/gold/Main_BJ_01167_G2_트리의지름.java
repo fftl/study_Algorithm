@@ -24,15 +24,20 @@ public class Main_BJ_01167_G2_트리의지름 {
 	}
 
 	static ArrayList<ArrayList<Node>> nodes;
-	static int N, result;
+	static int N, result, firstT;
 	static boolean[] visited;
 
 	static void dfs(int n, int len) {
-		result = Math.max(len, result);
+		if(result<len) {
+			result = len;
+			firstT = n;
+		}
+		
 		ArrayList<Node> nowArr = nodes.get(n);
 		for (int i = 0; i < nowArr.size(); i++) {
 			Node node = nowArr.get(i);
-			if (visited[node.point])continue;
+			if (visited[node.point]) continue;
+			
 			visited[node.point] = true;
 			dfs(node.point, len + node.len);
 			visited[node.point] = false;
@@ -65,13 +70,15 @@ public class Main_BJ_01167_G2_트리의지름 {
 				nodes.get(now).add(new Node(a, b));
 			}
 		}
-
-		for (int i = 1; i <= N; i++) {
-			visited = new boolean[N+1];
-			visited[i] = true;
-			dfs(i, 0);
-		}
-
+		
+		visited = new boolean[N+1];
+		visited[1] = true;
+		dfs(1, 0);
+		
+		visited = new boolean[N+1];
+		visited[firstT] = true;
+		dfs(firstT, 0);
+		
 		System.out.println(result);
 	}
 }
