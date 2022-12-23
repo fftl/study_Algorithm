@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main_BJ_21758_꿀따기 {
+public class Main_BJ_21758_G5_꿀따기 {
 	static int n;
 	static int[] honeys;
 	static long maxCount, total;
