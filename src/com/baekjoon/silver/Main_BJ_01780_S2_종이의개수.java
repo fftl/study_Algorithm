@@ -5,88 +5,82 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main_BJ_01780_S2_종이의개수 {
-	
-	static int a, b, c; // a는 -1의 개수, b는 0의 개수, c는 1의 개수
-	
-	static int check(int[][] board) {
-		int nowA = 0;
-		int nowB = 0;
-		int nowC = 0;
-		
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[0].length; j++) {
+	static int N, res1, res2, res3;
+	static int[][] board;
+
+	static void dep(int n, int y, int x) {
+		if (n == 1) {
+			int now = board[y][x];
+			if (now == -1)
+				res1++;
+			else if (now == 0)
+				res2++;
+			else
+				res3++;
+			return;
+		}
+
+		// 세개의 키로 만약 두개 이상이 true가 되면 종이를 만들 수 없다!
+		boolean mone = false;
+		boolean zero = false;
+		boolean one = false;
+		boolean able = true;
+
+		run: for (int i = y; i < y + n; i++) {
+			for (int j = x; j < x + n; j++) {
 				int now = board[i][j];
-				if(now==-1) nowA++;
-				else if(now==0) nowB++;
-				else nowC++;
+				if (now == -1)
+					mone = true;
+				else if (now == 0)
+					zero = true;
+				else
+					one = true;
+				// 만약 수가 두개 이상일 경우에는 종이를 만들 수 없으므로 탐색을 바로 종료해버립니다.
+				if ((mone && zero) || (zero && one) || (mone && one)) {
+					able = false;
+					break run;
+				}
 			}
 		}
-		
-		if(nowB==0 && nowC==0) {
-			return -1;
-		} else if(nowA==0 && nowC==0) {
-			return 0;
-		} else if(nowA==0 && nowB==0) {
-			return 1;
+
+		if (able) {
+			if (mone)
+				res1++;
+			else if (zero)
+				res2++;
+			else
+				res3++;
+
+			// 이번 사이즈에서 종이를 만들 수 없다면
 		} else {
-			return 9;
-		}
-	}
-	
-	static void run(int[][] board, int size) {
-		int check = check(board);
-		if(check<9) {
-			if(check == -1) a++;
-			else if(check == 0) b++;
-			else c++;
-		} else {
-			int mini = size/3;
-			if(mini == 1) {
-				for (int i = 0; i < size; i++) {
-					for (int j = 0; j < size; j++) {
-						if(board[i][j] == -1) a++;
-						else if(board[i][j] == 0) b++;
-						else c++;
-					}
+			int half = n / 3;
+			for (int i = y; i < y + n; i += half) {
+				for (int j = x; j < x + n; j += half) {
+					dep(half, i, j);
 				}
-			} else {
-				for (int i = 0; i < size; i+=3) {
-					for (int j = 0; j < size; j+=3) {
-						int[][] nowBoard = new int[mini][mini];
-						for (int i2 = i; i2 < i+mini; i2++) {
-							for (int j2 = j; j2 < j+mini; j2++) {
-								nowBoard[i2-i][j2-j] = board[i2][j2];
-							}
-						}
-						run(nowBoard, mini);
-					}
-				}
-				
 			}
 		}
 	}
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
-		int n = Integer.parseInt(br.readLine());
-		
-		int[][] board = new int[n][n];
-		
-		for(int i=0; i<n; i++) {
+		N = Integer.parseInt(br.readLine());
+		board = new int[N][N];
+
+		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < n; j++) {
+			for (int j = 0; j < N; j++) {
 				board[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		
-		a = 0; b = 0; c = 0;
-		
-		run(board, n);
-		
-		System.out.println(a);
-		System.out.println(b);
-		System.out.println(c);
+
+		dep(N, 0, 0);
+
+		System.out.println(res1);
+		System.out.println(res2);
+		System.out.println(res3);
+
 	}
 }
