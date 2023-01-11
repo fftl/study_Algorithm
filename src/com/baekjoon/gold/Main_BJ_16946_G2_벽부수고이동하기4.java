@@ -34,12 +34,13 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 			}
 		}
 		
-		int idx = 1;
+		int idx = 2;
 		int cnt = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				if(arr[i][j] == 0) {
 					
+					arr[i][j] = idx;
 					Queue<int[]> q = new LinkedList<>();
 					q.add(new int[] {i, j});
 					
@@ -53,11 +54,10 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 							
 							if(0<=ny && ny<N && 0<=nx && nx<M && arr[ny][nx] == 0) {
 								q.add(new int[] {ny, nx});
-								arr[i][j] = idx;
+								arr[ny][nx] = idx;
 							}
 						}
 					}
-					
 					map.put(idx, cnt);
 					idx++;
 					cnt=0;
@@ -65,40 +65,34 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 			}
 		}
 		
-		System.out.println(map.toString());
-		
-//		visited = new boolean[N][M];
-//		for (int i = 0; i < N; i++) {
-//			for (int j = 0; j < M; j++) {
-//				if(arr[i][j] == 1) {
-//					int cnt = 1;
-//					
-//					Queue<int[]> q = new LinkedList<>();
-//					q.add(new int[] {i, j});
-//					
-//					visited[i][j] = true;
-//					
-//					while(!q.isEmpty()) {
-//						int[] now = q.poll();
-//						
-//						for(int k=0; k<4; k++) {
-//							int ny = now[0] + dy[k];
-//							int nx = now[1] + dx[k];
-//							
-//							if(0<=ny && ny<N && 0<=nx && nx<M && !visited[ny][nx] && arr[ny][nx] == 0) {
-//								q.add(new int[] {ny, nx});
-//								visited[ny][nx] = true;
-//								cnt++;
-//							}
-//						}
-//					}
-//					result[i][j] = cnt;
-//					for (int k = 0; k < N; k++) {
-//						Arrays.fill(visited[k], false);
-//					}
-//				}
-//			}
-//		}
+		boolean[] visited = new boolean[idx+1];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if(arr[i][j] == 1) {
+					int value = 1;
+					
+					Queue<int[]> q = new LinkedList<>();
+					q.add(new int[] {i, j});
+					
+					while(!q.isEmpty()) {
+						int[] now = q.poll();
+						
+						for(int k=0; k<4; k++) {
+							int ny = now[0] + dy[k];
+							int nx = now[1] + dx[k];
+							if(0<=ny && ny<N && 0<=nx && nx<M && !visited[arr[ny][nx]] && arr[ny][nx] > 1) {
+								q.add(new int[] {ny, nx});
+								visited[arr[ny][nx]] = true;
+								value+=map.get(arr[ny][nx]);
+							}
+						}
+					}
+					
+					result[i][j] = value%10;
+					Arrays.fill(visited, false);
+				}
+			}
+		}
 		
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < N; i++) {
