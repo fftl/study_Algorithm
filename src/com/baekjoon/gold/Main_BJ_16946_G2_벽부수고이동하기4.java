@@ -2,7 +2,6 @@ package com.baekjoon.gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -65,7 +64,6 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 			}
 		}
 		
-		boolean[] visited = new boolean[idx+1];
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				if(arr[i][j] == 1) {
@@ -74,6 +72,7 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 					Queue<int[]> q = new LinkedList<>();
 					q.add(new int[] {i, j});
 					
+					boolean[] visited = new boolean[idx+1];
 					while(!q.isEmpty()) {
 						int[] now = q.poll();
 						
@@ -81,7 +80,6 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 							int ny = now[0] + dy[k];
 							int nx = now[1] + dx[k];
 							if(0<=ny && ny<N && 0<=nx && nx<M && !visited[arr[ny][nx]] && arr[ny][nx] > 1) {
-								q.add(new int[] {ny, nx});
 								visited[arr[ny][nx]] = true;
 								value+=map.get(arr[ny][nx]);
 							}
@@ -89,7 +87,6 @@ public class Main_BJ_16946_G2_벽부수고이동하기4 {
 					}
 					
 					result[i][j] = value%10;
-					Arrays.fill(visited, false);
 				}
 			}
 		}
