@@ -18,3 +18,4 @@ public class Main_BJ_02845_B4_파티가끝나고난뒤 {
 		sc.close();
 	}
 }
+
