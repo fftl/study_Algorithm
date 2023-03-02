@@ -14,10 +14,20 @@ public class Solution_SW_D0 {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		sc.close();
-		
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int t = Integer.parseInt(br.readLine());
-	}
 
+		for(int tc = 1; tc <= t; tc++)
+		{
+
+			/////////////////////////////////////////////////////////////////////////////////////////////
+			/*
+				 이 부분에 여러분의 알고리즘 구현이 들어갑니다.
+			 */
+			/////////////////////////////////////////////////////////////////////////////////////////////
+
+		}
+	}
 }
