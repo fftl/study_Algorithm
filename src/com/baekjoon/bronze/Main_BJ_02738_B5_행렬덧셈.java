@@ -11,8 +11,9 @@ public class Main_BJ_02738_B5_행렬덧셈 {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
 
 		int[][] a = new int[N][M];
 		for (int i = 0; i < N; i++) {
