@@ -3,7 +3,7 @@ package com.baekjoon.bronze;
 import java.util.*;
 import java.io.*;
 
-class Main{
+class Main_BJ_10768_B4_특별한날{
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int month = Integer.parseInt(br.readLine());
@@ -15,6 +15,6 @@ class Main{
             System.out.println("Special");
         } else {
             System.out.println("After");
-        }
+        }ㅇ
     }
 }
