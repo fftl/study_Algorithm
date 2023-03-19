@@ -15,6 +15,6 @@ class Main_BJ_10768_B4_특별한날{
             System.out.println("Special");
         } else {
             System.out.println("After");
-        }ㅇ
+        }
     }
 }
