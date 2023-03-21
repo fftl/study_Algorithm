@@ -30,8 +30,7 @@ public class Main_BJ_13458_B2_시험감독 {
 				if(now%sub > 0) result++;
 			}
 		}
-		
+
 		System.out.println(result);
-		
 	}
 }
