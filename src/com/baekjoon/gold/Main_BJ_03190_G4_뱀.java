@@ -54,6 +54,7 @@ public class Main_BJ_03190_G4_뱀 {
 				if(0<=ny && ny<N && 0<=nx && nx<N) {
 					//내 몸에 부딪힌다면
 					if(que.contains(new Node(ny, nx))) {
+						System.out.println("me1");
 						end = true;
 						break runFor;
 					}
@@ -72,6 +73,7 @@ public class Main_BJ_03190_G4_뱀 {
 					break runFor;
 				}
 				
+				System.out.println(head.toString());
 			}
 			
 			if(d == 'D') {
@@ -82,7 +84,6 @@ public class Main_BJ_03190_G4_뱀 {
 				else direct = 3;
 			}
 			
-			System.out.println(que.toString());
 		}
 		
 		while(!end) {
@@ -107,9 +108,9 @@ public class Main_BJ_03190_G4_뱀 {
 			} else {
 				break;
 			}
-			System.out.println(que.toString());
+			System.out.println(head.toString());
+			
 		}
-		
 		System.out.println(s);
 	}
 	
