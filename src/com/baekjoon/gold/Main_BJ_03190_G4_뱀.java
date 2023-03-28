@@ -2,19 +2,17 @@ package com.baekjoon.gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_03190_G4_뱀 {
 	static int N, K, L, direct, s; //direct - 방향, s - 시간
-	static boolean[][] apple;
+	static boolean[][] apple, board;
 	static int[] dy = {0, 1, 0, -1};
 	static int[] dx = {1, 0, -1, 0};
-	static Queue<Node> que;
-	static Node head;
+	static Queue<int[]> que;
+	static int[] head;
 
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +20,9 @@ public class Main_BJ_03190_G4_뱀 {
 		N = Integer.parseInt(br.readLine());
 		K = Integer.parseInt(br.readLine());
 
+		//사과 받아서 지정해놓기
 		apple = new boolean[N][N];
+		board = new boolean[N][N];
 
 		for (int i = 0; i < K; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -34,7 +34,7 @@ public class Main_BJ_03190_G4_뱀 {
 
 		L = Integer.parseInt(br.readLine());
 		que = new LinkedList<>();
-		head = new Node(0, 0);
+		head = new int[] {0,0};
 		que.add(head);
 		direct = 0;
 		s = 0;
@@ -46,34 +46,35 @@ public class Main_BJ_03190_G4_뱀 {
 			char d = st.nextToken().charAt(0);
 			
 			while(s<r) {
-				int ny = head.y+dy[direct];
-				int nx = head.x+dx[direct];
+				int ny = head[0]+dy[direct];
+				int nx = head[1]+dx[direct];
 				s++;
 				
 				//벽 안으로 이동한다면
 				if(0<=ny && ny<N && 0<=nx && nx<N) {
+					
 					//내 몸에 부딪힌다면
-					if(que.contains(new Node(ny, nx))) {
-						System.out.println("me1");
+					if(board[ny][nx]) {
 						end = true;
 						break runFor;
 					}
 					
-					que.add(new Node(ny, nx));
-					head = new Node(ny, nx);
+					board[ny][nx] = true;
+					head[0] = ny;
+					head[1] = nx;
+					que.add(new int[]{ny, nx});
 					
 					if(apple[ny][nx]) {
 						apple[ny][nx] = false;
 					} else {
-						que.poll();
+						int[] now = que.poll();
+						board[now[0]][now[1]] = false;
 					}
 					
 				} else {
 					end = true;
 					break runFor;
 				}
-				
-				System.out.println(head.toString());
 			}
 			
 			if(d == 'D') {
@@ -87,43 +88,36 @@ public class Main_BJ_03190_G4_뱀 {
 		}
 		
 		while(!end) {
-			int ny = head.y+dy[direct];
-			int nx = head.x+dx[direct];
+			int ny = head[0]+dy[direct];
+			int nx = head[1]+dx[direct];
 			s++;
 			
 			//벽 안으로 이동한다면
 			if(0<=ny && ny<N && 0<=nx && nx<N) {
-				//내 몸에 부딪힌다면
-				if(que.contains(new Node(ny, nx))) break;
 				
-				que.add(new Node(ny, nx));
-				head = new Node(ny, nx);
+				//내 몸에 부딪힌다면
+				if(board[ny][nx]) {
+					end = true;
+					break;
+				}
+				
+				board[ny][nx] = true;
+				head[0] = ny;
+				head[1] = nx;
+				que.add(new int[] {ny,nx});
 				
 				if(apple[ny][nx]) {
 					apple[ny][nx] = false;
 				} else {
-					que.poll();
+					int[] now = que.poll();
+					board[now[0]][now[1]] = false;
 				}
 				
 			} else {
 				break;
 			}
-			System.out.println(head.toString());
 			
 		}
 		System.out.println(s);
-	}
-	
-	static class Node{
-		int y, x;
-		public Node(int y, int x) {
-			this.y = y;
-			this.x = x;
-		}
-		@Override
-		public String toString() {
-			return "Node [y=" + y + ", x=" + x + "]";
-		}
-		
 	}
 }
