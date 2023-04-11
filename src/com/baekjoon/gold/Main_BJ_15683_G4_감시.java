@@ -53,13 +53,13 @@ public class Main_BJ_15683_G4_감시 {
 	
 	static void dfs(int cnt) {
 		if(cnt==E) {
-			minCheck();
+			System.out.println(camera.toString());
+//			minCheck();
 			return;
 		}
 		
 		for (int i = cnt; i < E; i++) {
 			for (int j = 1; j <= 5; j++) {
-				System.out.println(i+","+j);
 				camera.get(i).k=j;
 				dfs(cnt+1);
 			}
