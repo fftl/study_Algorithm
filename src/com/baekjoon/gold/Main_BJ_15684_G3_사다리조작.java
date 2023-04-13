@@ -23,9 +23,9 @@ public class Main_BJ_15684_G3_사다리조작 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		Y = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
 		X = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		Y = Integer.parseInt(st.nextToken());
 
 		line = new boolean[Y][X-1];
 		end = false;
@@ -42,22 +42,37 @@ public class Main_BJ_15684_G3_사다리조작 {
 		}
 	}
 
-	//i->i로 가는지 확인
-	static boolean check(){
-		return true;
-	}
-
-	static void print(){
+	//새로운 사다리를 놓는 것을 출력하여 확인합니다.
+	static void print() {
 		for (int i = 0; i < Y; i++) {
 			String str = "";
-			for (int j = 0; j < X-1; j++) {
-				if(line[i][j]) str+="1 ";
-				else str+="0 ";
+			for (int j = 0; j < X - 1; j++) {
+				if (line[i][j]) str += "1 ";
+				else str += "0 ";
 			}
 			System.out.println(str);
 		}
 	}
 
+	//i->i로 가는지 확인
+	static boolean check(){
+		int ly = line.length;
+		int lx = line[0].length;
+
+		for (int i = 0; i < X; i++) {
+			int now = i;
+			int h = 0;
+			while(h<Y){
+				
+				h++;
+			}
+
+
+			if(now!=i) return false;
+		}
+
+		return true;
+	}
 
 	//사다리를 놓을 수 있는 모든 경우의 수를 확인
 	static void dfs(int cnt, int nowMax){
@@ -66,7 +81,6 @@ public class Main_BJ_15684_G3_사다리조작 {
 		if(cnt==nowMax){
 			System.out.println("----------------------------------");
 			print();
-//			if(check()) end = true;
 			return;
 		}
 
@@ -76,7 +90,7 @@ public class Main_BJ_15684_G3_사다리조작 {
 				//사다리를 놓을 수 없는 상황들을 모두 걸러줍니다.
 				if(line[i][j]) continue;
 				if(0<=j-1 && line[i][j-1]) continue;
-				if(j<X-1 && line[i][j+1]) continue;
+				if(j+1<X-1 && line[i][j+1]) continue;
 
 				line[i][j] = true;
 				dfs(cnt+1, nowMax);
