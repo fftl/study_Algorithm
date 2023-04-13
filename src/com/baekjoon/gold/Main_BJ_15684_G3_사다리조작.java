@@ -2,8 +2,6 @@ package com.baekjoon.gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.StringTokenizer;
 /**
  *
@@ -23,9 +21,9 @@ public class Main_BJ_15684_G3_사다리조작 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		Y = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
 		X = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		Y = Integer.parseInt(st.nextToken());
 
 		line = new boolean[Y][X-1];
 		end = false;
@@ -37,13 +35,36 @@ public class Main_BJ_15684_G3_사다리조작 {
 			line[a][b] = true;
 		}
 
+		if(check()){
+			System.out.println(0);
+			return;
+		}
+
 		for (int i = 0; i < 4; i++) {
 			dfs(0, i);
+			if(end){
+				System.out.println(i);
+				return;
+			}
 		}
+
+		System.out.println(-1);
+		return;
 	}
 
 	//i->i로 가는지 확인
 	static boolean check(){
+		for (int i = 0; i < X; i++) {
+			int now = i;
+			int h = 0;
+			while(h<Y){
+				if(0<=now-1 && line[h][now-1]) now = now-1;
+				else if(now<X-1 &&line[h][now]) now = now+1;
+				h++;
+			}
+
+			if(i!=now) return false;
+		}
 		return true;
 	}
 
@@ -63,10 +84,11 @@ public class Main_BJ_15684_G3_사다리조작 {
 	static void dfs(int cnt, int nowMax){
 		if(end) return;
 
+
 		if(cnt==nowMax){
-			System.out.println("----------------------------------");
-			print();
-//			if(check()) end = true;
+			if(check()) {
+				end = true;
+			}
 			return;
 		}
 
@@ -76,7 +98,7 @@ public class Main_BJ_15684_G3_사다리조작 {
 				//사다리를 놓을 수 없는 상황들을 모두 걸러줍니다.
 				if(line[i][j]) continue;
 				if(0<=j-1 && line[i][j-1]) continue;
-				if(j<X-1 && line[i][j+1]) continue;
+				if(j+1<X-1 && line[i][j+1]) continue;
 
 				line[i][j] = true;
 				dfs(cnt+1, nowMax);
