@@ -37,50 +37,60 @@ public class Main_BJ_15684_G3_사다리조작 {
 			line[a][b] = true;
 		}
 
+		if(check()){
+			System.out.println(0);
+			return;
+		}
+
 		for (int i = 0; i < 4; i++) {
 			dfs(0, i);
+			if(end){
+				System.out.println(i);
+				return;
+			}
 		}
+
+		System.out.println(-1);
+		return;
 	}
 
-	//새로운 사다리를 놓는 것을 출력하여 확인합니다.
-	static void print() {
+	//i->i로 가는지 확인
+	static boolean check(){
+		for (int i = 0; i < X; i++) {
+			int now = i;
+			int h = 0;
+			while(h<Y){
+				if(0<=now-1 && line[h][now-1]) now = now-1;
+				else if(now<X-1 &&line[h][now]) now = now+1;
+				h++;
+			}
+
+			if(i!=now) return false;
+		}
+		return true;
+	}
+
+	static void print(){
 		for (int i = 0; i < Y; i++) {
 			String str = "";
-			for (int j = 0; j < X - 1; j++) {
-				if (line[i][j]) str += "1 ";
-				else str += "0 ";
+			for (int j = 0; j < X-1; j++) {
+				if(line[i][j]) str+="1 ";
+				else str+="0 ";
 			}
 			System.out.println(str);
 		}
 	}
 
-	//i->i로 가는지 확인
-	static boolean check(){
-		int ly = line.length;
-		int lx = line[0].length;
-
-		for (int i = 0; i < X; i++) {
-			int now = i;
-			int h = 0;
-			while(h<Y){
-				
-				h++;
-			}
-
-
-			if(now!=i) return false;
-		}
-
-		return true;
-	}
 
 	//사다리를 놓을 수 있는 모든 경우의 수를 확인
 	static void dfs(int cnt, int nowMax){
 		if(end) return;
 
+
 		if(cnt==nowMax){
-			System.out.println("----------------------------------");
-			print();
+			if(check()) {
+				end = true;
+			}
 			return;
 		}
 
