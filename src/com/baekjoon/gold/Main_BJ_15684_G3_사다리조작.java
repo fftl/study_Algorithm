@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Main_BJ_15684_G3_사다리조작 {
+	
 	static int X, M, Y;
-	static HashMap<int[], int[]> def, ref;
+	static HashMap<int[], int[]> def;
 	static boolean[][] board, copy;
 	static boolean end;
 
@@ -65,7 +66,6 @@ public class Main_BJ_15684_G3_사다리조작 {
 
 	//처음에 놓여있는 사다리를 포함한 맵을 복사합니다.
 	static boolean[][] copyBoard(){
-
 		boolean[][] copy = new boolean[Y][X];
 		for (int i = 0; i < Y; i++) {
 			for (int j = 0; j < X; j++) {
@@ -96,7 +96,8 @@ public class Main_BJ_15684_G3_사다리조작 {
 		for (int i = 0; i < Y; i++) {
 			for (int j = 0; j < X-1; j++) {
 				if(copy[i][j] || visited[i][j]) continue;
-
+				
+				
 				visited[i][j] = true;
 				visited[i][j+1] = true;
 				dfs(cnt+1, maxCnt, visited);
