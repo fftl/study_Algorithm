@@ -69,7 +69,7 @@ public class Solution_PG_L2_k_3차_압축 {
 		map = new HashMap<>();
 		for(int i=1; i<=26; i++){
 			char in = 'A';
-			map.put(Character.toString(in+(i-1)), i);
+			map.put(String.valueOf(in+(i-1)), i);
 		}
 	}
 }
