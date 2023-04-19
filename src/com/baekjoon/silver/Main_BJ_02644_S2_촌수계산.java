@@ -36,6 +36,7 @@ public class Main_BJ_02644_S2_촌수계산 {
 			map.get(w).add(q);
 		}
 		
+		System.out.println(map);
 		result = -1;
 		boolean[] visited = new boolean[N+1];
 		visited[a] = true;
