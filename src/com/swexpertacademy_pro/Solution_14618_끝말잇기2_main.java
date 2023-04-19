@@ -53,7 +53,7 @@ public class Solution_14618_끝말잇기2_main {
 
     public static void main(String[] args) throws Exception
     {
-        // System.setIn(new java.io.FileInputStream("res/sample_input.txt"));
+         System.setIn(new java.io.FileInputStream("res/sample_input.txt"));
         br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer stinit = new StringTokenizer(br.readLine(), " ");
 
