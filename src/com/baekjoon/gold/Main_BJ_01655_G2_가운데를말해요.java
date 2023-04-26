@@ -2,53 +2,39 @@ package com.baekjoon.gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_01655_G2_가운데를말해요 {
 	public static void main(String[] args) throws Exception{
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//		StringTokenizer st = new StringTokenizer(br.readLine());
-//		int n = Integer.parseInt(br.readLine());
-		
-		int[] arr = new int[] {1,2,3};
-		int[] arr1 = new int[] {3,7,9};
-		int[] arr2 = new int[] {2,11,3};
-		int[] arr3 = new int[] {0,2,3};
-		
-		ArrayList<int[]> list = new ArrayList<>();
-		list.add(arr);
-		list.add(arr1);
-		list.add(arr2);
-		list.add(arr3);
-		
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(Arrays.toString(list.get(i)));
-		}
-		
-		Collections.sort(list, new Comparator<int[]>() {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
 
-			@Override
-			public int compare(int[] o1, int[] o2) {
-				if(o1[0] == o2[0]) {
-					if(o1[1] == o2[1]) {
-						return o1[2]-o2[2]; 
-					} else {
-						return o1[1]-o2[1];
-					}
-				} else {
-					return o1[0]-o2[0];
+		PriorityQueue<Integer> down = new PriorityQueue<>(Collections.reverseOrder());
+		PriorityQueue<Integer> up = new PriorityQueue<>();
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < n; i++) {
+			int now = Integer.parseInt(br.readLine());
+			//개수가 같다면
+			if(up.size() == down.size()){
+				down.add(now);
+			} else {
+				up.add(now);
+			}
+
+			if(!up.isEmpty() && !down.isEmpty()){
+				if(up.peek() < down.peek()){
+					int tmp = up.poll();
+					up.add(down.poll());
+					down.add(tmp);
 				}
 			}
-		});
-		System.out.println("-----------------------------");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(Arrays.toString(list.get(i)));
+
+			sb.append(down.peek()+"\n");
 		}
+		System.out.println(sb.toString().trim());
 	}
 }
