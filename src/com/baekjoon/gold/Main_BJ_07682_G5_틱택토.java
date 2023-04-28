@@ -73,7 +73,7 @@ public class Main_BJ_07682_G5_틱택토 {
 			if(str.charAt(0) == str.charAt(4) && str.charAt(4) == str.charAt(8) && str.charAt(4) == 'X') return true;
 			if(str.charAt(2) == str.charAt(4) && str.charAt(4) == str.charAt(6) && str.charAt(4) == 'X') return true;
 			
-			if(xCnt+oCnt==9) return true;
+			if(xCnt+oCnt==9 && !oYes && !xYes) return true;
 		}
 		
 		return false;
