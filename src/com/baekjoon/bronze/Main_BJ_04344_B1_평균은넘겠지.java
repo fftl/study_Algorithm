@@ -2,8 +2,6 @@ package com.baekjoon.bronze;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_04344_B1_평균은넘겠지 {
@@ -27,7 +25,14 @@ public class Main_BJ_04344_B1_평균은넘겠지 {
 				if(arr[j]>avg) cnt++;
 			}
 			double result = (cnt/n)*100;
-			System.out.println(Double.);
+			double response = Math.round(result*1000)/1000.0;
+			String answer = Double.toString(response);
+			String[] cut = answer.split("\\.");
+			while(cut[1].length()<3) {
+				cut[1] += "0";
+			}
+			
+			System.out.println(cut[0]+"."+cut[1]+"%");
 		}
 	}
 }
