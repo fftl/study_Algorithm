@@ -19,10 +19,10 @@ public class Main_BJ_12015_G2_가장긴증가하는부분수열2 {
 		int[] dp = new int[n];
 		dp[0] = 1;
 		int max = arr[0];
-
-		for (int i = 0; i < ; i++) {
-
-		}
+//
+//		for (int i = 0; i < ; i++) {
+//
+//		}
 
 
 	}
