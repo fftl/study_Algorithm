@@ -1,11 +1,11 @@
-package com.baekjoon.gold;
+package com.baekjoon.platinum;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class Main_BJ_12015_G2_가장긴증가하는부분수열2 {
+public class Main_BJ_14003_P5_가장긴증가하는부분수열5 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
@@ -21,8 +21,6 @@ public class Main_BJ_12015_G2_가장긴증가하는부분수열2 {
 		lis[0] = arr[0];
 		int lisMax = 0;
 
-<<<<<<< HEAD
-=======
 		for (int i = 1; i < n; i++) {
 			int now = arr[i];
 			if(now>lis[lisMax]){
@@ -45,6 +43,10 @@ public class Main_BJ_12015_G2_가장긴증가하는부분수열2 {
 			}
 		}
 		System.out.println(lisMax+1);
->>>>>>> 55ccfa81a653489c68de1417278471f717a504bf
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < lisMax+1; i++) {
+			sb.append(lis[i]+" ");
+		}
+		System.out.println(sb.toString().trim());
 	}
 }
