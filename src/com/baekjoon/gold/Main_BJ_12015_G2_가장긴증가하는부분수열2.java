@@ -21,8 +21,6 @@ public class Main_BJ_12015_G2_가장긴증가하는부분수열2 {
 		lis[0] = arr[0];
 		int lisMax = 0;
 
-<<<<<<< HEAD
-=======
 		for (int i = 1; i < n; i++) {
 			int now = arr[i];
 			if(now>lis[lisMax]){
@@ -45,6 +43,5 @@ public class Main_BJ_12015_G2_가장긴증가하는부분수열2 {
 			}
 		}
 		System.out.println(lisMax+1);
->>>>>>> 55ccfa81a653489c68de1417278471f717a504bf
 	}
 }
