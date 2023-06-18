@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main_BJ_01194_G1_달이차오른다가자 {
+	
 	static int Y, X, min;
 	static int[] dy = {-1, 1, 0, 0};
 	static int[] dx = {0, 0, -1, 1};
