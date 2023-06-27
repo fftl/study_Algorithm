@@ -134,7 +134,7 @@ public class Main_BJ_19237_G2_어른상어 {
 		//상어를 하나씩 꺼내며 이동한 것을 표현해줍니다.
 		for (int i = 1; i <= M; i++) {
 			if(!shark.containsKey(i)) continue;
-			int[] nowShark = shark.get(i); //현재 상어의 위치를 가져오고
+			int[] nowShark = shark.get(i); //현재 상어의 위치를 가져오고ㅗ
 			int d = dir[i]; //현재 방향을 가져와줍니다.
 			
 			//이제 현재 상어가 보고있는 방향 기준으로 이동할 방향의 우선순위를 확인합니다.
