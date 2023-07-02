@@ -12,12 +12,14 @@ public class Main_BJ_02042_G1_구간합구하기 {
 		long[] tree;
 		int treeSize;
 		
+		//초기화 할 때 배열의 크기를 가지고 long 배열과 트리의 크기를 구해줍니다.
 		public SegmentTree(int arrSize) {
 			int h = (int) Math.ceil(Math.log(arrSize) / Math.log(2));
 			this.treeSize = (int) Math.pow(2, h+1);
 			tree = new long[treeSize];
 		}
 		
+		//재귀를 이용해 각 트리의 자식들을 합하는 방식으로 모든 단계의? 합을 구합니다.
 		public long init(long[] arr, int node, int start, int end) {
 			if(start == end) {
 				return tree[node] = arr[start];
@@ -27,7 +29,9 @@ public class Main_BJ_02042_G1_구간합구하기 {
 					init(arr, node*2+1, (start+end)/2+1, end);
 		}
 		
+		//중간의 값이 변경되는 것을 표현합니다.
 		public void update(int node, int start, int end, int idx, long diff) {
+			//변경될 값의 idx가 범위를 벗어날 경우 종료합니다.
 			if(idx < start || end < idx) return;
 			
 			tree[node] += diff;
@@ -38,6 +42,7 @@ public class Main_BJ_02042_G1_구간합구하기 {
 			}
 		}
 		
+		//start ~ end 의 합을 구합니다.
 		public long sum(int node, int start, int end, int left, int right) {
 			if(left > end || right < start) {
 				return 0;
