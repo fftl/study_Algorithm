@@ -6,22 +6,36 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_01010_S5_다리놓기 {
+	static int cnt, n, m;
+	
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
-		int n = Integer.parseInt(br.readLine());
+		int tc = Integer.parseInt(br.readLine());
 		
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < tc; i++) {
 			st = new StringTokenizer(br.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
+			n = Integer.parseInt(st.nextToken());
+			m = Integer.parseInt(st.nextToken());
 			
-			int result = 1;
-			for (int j = b; j>=a; j--) {
-				result *= j;
-			}
+			cnt = 0;
 			
-			System.out.println(result);
+			dfs(0, 0, 1);
+			
+			System.out.println(cnt);
 		}
+	}
+	
+	static void dfs(int a, int b, int depth) {
+		if(depth == n) {
+			cnt++;
+		}
+		
+		for (int i = a; i < n; i++) {
+			for (int j = b; j < m; j++) {
+				dfs(i, j, depth + 1);
+			}
+		}
+		
 	}
 }
