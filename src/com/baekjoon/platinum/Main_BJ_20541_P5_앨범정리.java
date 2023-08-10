@@ -78,13 +78,13 @@ public class Main_BJ_20541_P5_앨범정리 {
 				//이름 순 첫번째 앨범을 삭제합니다.
 				if(value.equals("-1")) {
 					String firstAlbum = nowAlbum.subAlbumName.first();
-					
 					//이름 순 첫번째 앨범의 부모는 바로 pointer! pointer부터 재귀를 이용해 부모를 계속 찾아가며 제거된 앨범과 사진 수를 계산해줍니다.
 					removeParentUpdate(pointer, nowAlbum.subAlbumCnt, nowAlbum.subPickCnt);
 					removeAlbum(firstAlbum);
 					
+					//모두 삭제해줍니다.
 					while(!deleteList.isEmpty()) {
-						
+						map.remove(deleteList.poll());
 					}
 					
 					//이제 자식들을 Album들을 실제로 제거해줍니다.
