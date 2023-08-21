@@ -1,13 +1,61 @@
 package com.swexpertacademy_pro;
 
-//각 팀 별로 스코어 5개의 맵을 전부 만든다!?
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Solution_13072_병사관리_user {
+    static class Test{
+        int val;
 
-    static HashMap<Integer, Team> teams = new HashMap<>();
+        public Test(int val) {
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("Test{");
+            sb.append("val=").append(val);
+            sb.append('}');
+            return sb.toString();
+        }
+    }
+
+    static class Team{
+        int tId;
+        HashMap<Integer, LinkedList<Test>> map;
+
+        public Team(int tId, HashMap<Integer, LinkedList<Test>> map) {
+            this.tId = tId;
+            this.map = map;
+        }
+
+        void init(){
+            for (int i = 1; i <= 5; i++) {
+                map.put(i, new LinkedList<>());
+            }
+        }
+    }
+
     public void init()
     {
+        HashMap<Integer, Test> map = new HashMap<>();
+        map.put(1, new Test(10));
+
+        ArrayList<Test> arr = new ArrayList<>();
+        arr.add(map.get(1));
+
+        System.out.println("일단 입력 상황 확인 --------------------------");
+        System.out.println(map);
+        System.out.println(arr);
+
+        //삭제!!
+        map.remove(1);
+
+        System.out.println("삭제 이후 --------------------------");
+        System.out.println(map);
+        System.out.println(arr);
+
     }
 
     public void hire(int mID, int mTeam, int mScore)
@@ -31,28 +79,4 @@ public class Solution_13072_병사관리_user {
         return 0;
     }
 
-
-    static class Team{
-        int mTeam;
-
-    }
-
-    static class Member{
-        int mId, mTeam, mScore;
-
-        public Member(int mId, int mTeam, int mScore){
-            this.mId = mId;
-            this.mTeam = mTeam;
-            this.mScore = mScore;
-        }
-
-        @Override
-        public String toString() {
-            return "Member{" +
-                    "mId=" + mId +
-                    ", mTeam=" + mTeam +
-                    ", mScore=" + mScore +
-                    '}';
-        }
-    }
 }

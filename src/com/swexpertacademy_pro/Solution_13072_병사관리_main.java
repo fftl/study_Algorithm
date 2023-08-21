@@ -82,7 +82,7 @@ public class Solution_13072_병사관리_main {
     {
         int TC, MARK;
 
-        //System.setIn(new java.io.FileInputStream("res/sample_input.txt"));
+        System.setIn(new java.io.FileInputStream("res/sample_25_input.txt"));
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -94,6 +94,7 @@ public class Solution_13072_병사관리_main {
         {
             int score = run(br) ? MARK : 0;
             System.out.println("#" + testcase + " " + score);
+            break;
         }
 
         br.close();
