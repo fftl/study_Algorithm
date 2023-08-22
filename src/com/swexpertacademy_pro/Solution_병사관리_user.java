@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Solution_13072_병사관리_user {
+public class Solution_병사관리_user {
     static class Test{
         int val;
 

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution_13072_병사관리_main {
+public class Solution_병사관리_main {
     private final static int CMD_INIT				= 1;
     private final static int CMD_HIRE				= 2;
     private final static int CMD_FIRE				= 3;
@@ -12,7 +12,7 @@ public class Solution_13072_병사관리_main {
     private final static int CMD_UPDATE_TEAM		= 5;
     private final static int CMD_BEST_SOLDIER		= 6;
 
-    private final static Solution_13072_병사관리_user usersolution = new Solution_13072_병사관리_user();
+    private final static Solution_병사관리_user usersolution = new Solution_병사관리_user();
 
     private static boolean run(BufferedReader br) throws Exception
     {
