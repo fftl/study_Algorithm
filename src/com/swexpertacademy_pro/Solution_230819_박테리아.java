@@ -3,6 +3,7 @@ package com.swexpertacademy_pro;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Solution_230819_박테리아 {
 
@@ -10,20 +11,24 @@ public class Solution_230819_박테리아 {
     static class Bac{
         int bId; //박테리아 아이디
         int y, x; //박테리아 중심
+        int ny, nx; //현재 박테리아 위치
         int size; //박테리아 크기
         int time; //박테리아 수명
         int endTime; //박테리아 수명 만료 시간
+
     }
 
     //bId 박테리아의 모든 좌표를 구합니다.
     static class DelBac{
         int bId;
         int endTime;
-        ArrayList<int[]> list = new ArrayList<>();
+        ArrayList<int[]> list = new ArrayList<>(); //해당 박테리아의 좌표를 담아주어 바로 제거할 수 있도록 합니다.
     }
 
     static PriorityQueue<DelBac> delBacs;
     static int[][] map;
+    static int[] dy = {-1, 0, 0, 1};
+    static int[] dx = {0, -1, 1, 0};
     static int Y, X;
 
     //초기화
@@ -40,8 +45,30 @@ public class Solution_230819_박테리아 {
     }
 
     //박테리아 생성
-    static void put(int mTime, int mY, int mX, int size, int time){
+    static void put(int mTime, int mY, int mX, int mSize, int time){
         remove(mTime);
+
+        PriorityQueue<Bac> pq = new PriorityQueue<>(new Comparator<Bac>() {
+            @Override
+            public int compare(Bac o1, Bac o2) {
+                if(Math.abs(o1.y-o1.ny)+Math.abs(o1.x-o1.nx) == Math.abs(o2.y-o2.ny)+Math.abs(o2.x-o2.nx)){ //맨허튼 거리가 같다면
+                    if(o1.ny==o2.ny){ //Y축이 같다면
+                        //x축 오름차순
+                        return o1.x-o2.x;
+                    } else {
+                        //y축 오름차순
+                        return o1.y-o2.y;
+                    }
+                } else {
+                    //맨허튼 거리 오름차순
+                    return Math.abs(o1.y-o1.ny)+Math.abs(o1.x-o1.nx) - Math.abs(o2.y-o2.ny)+Math.abs(o2.x-o2.nx);
+                }
+            }
+        });
+        Queue<int[]> q = new PriorityQueue<>();
+
+        pq.add(new Bac())
+
     };
 
     //박테리아 확인
@@ -76,7 +103,7 @@ public class Solution_230819_박테리아 {
             for (int i = 0; i < delBac.list.size(); i++) {
 
                 //만약 map에 입력된 박테리아 아이디와 delBacs의 박테리아 아이디가 같다면 해당 박테리아를 삭제(0처리) 해줍니다.
-                //다르다면 kill 당한 이후 다른 박테리아가 해당 위치에 새로 생성된 것!
+                //다르다면 kill 당한 이후 다른 박테리아가 해당 위치에 새로 생성된 것! 걔는 지우면 안됩니다.
                 if(map[delBac.list.get(i)[0]][delBac.list.get(i)[1]] == delBac.bId) map[delBac.list.get(i)[0]][delBac.list.get(i)[1]] = 0;
             }
         }
