@@ -67,7 +67,6 @@ public class Solution_230819_박테리아 {
         });
         Queue<int[]> q = new PriorityQueue<>();
 
-        pq.add(new Bac())
 
     };
 
