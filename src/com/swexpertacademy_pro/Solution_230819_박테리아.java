@@ -16,17 +16,32 @@ public class Solution_230819_박테리아 {
         int time; //박테리아 수명
         int endTime; //박테리아 수명 만료 시간
 
+        public Bac(int bId, int y, int x, int ny, int nx, int size, int time, int endTime) {
+            this.bId = bId;
+            this.y = y;
+            this.x = x;
+            this.ny = ny;
+            this.nx = nx;
+            this.size = size;
+            this.time = time;
+            this.endTime = endTime;
+        }
     }
 
     //bId 박테리아의 모든 좌표를 구합니다.
     static class DelBac{
-        int bId;
-        int endTime;
+        int bId; //박테리아 id
+        int endTime; //소멸 시간
         ArrayList<int[]> list = new ArrayList<>(); //해당 박테리아의 좌표를 담아주어 바로 제거할 수 있도록 합니다.
+
+        public DelBac(int bId, int endTime) {
+            this.bId = bId;
+            this.endTime = endTime;
+        }
     }
 
     static PriorityQueue<DelBac> delBacs;
-    static int[][] map;
+    static int[][] map; //박테리아id 를 이용하여 현 박테리아 현황을 표시.
     static int[] dy = {-1, 0, 0, 1};
     static int[] dx = {0, -1, 1, 0};
     static int Y, X;
@@ -42,13 +57,21 @@ public class Solution_230819_박테리아 {
             }
         });
         map = new int[Y][X];
+
     }
 
     //박테리아 생성
-    static void put(int mTime, int mY, int mX, int mSize, int time){
+    //가장 마지막에 생성된 박테리아의 위치를 반환합니다.
+    //생성할 수 없을 경우 0,0을 반환합니다.
+    static int[] put(int mTime, int bId, int mY, int mX, int mSize, int time){
         remove(mTime);
 
-        PriorityQueue<Bac> pq = new PriorityQueue<>(new Comparator<Bac>() {
+        //만약 중심위치가 0이 아닐 경우 바로 0,0으로 반환해주어 끝냅니다.
+        if(map[mY][mX] != 0){
+            return new int[]{0,0};
+        }
+
+        PriorityQueue<Bac> pq = new PriorityQueue<>( new Comparator<Bac>() {
             @Override
             public int compare(Bac o1, Bac o2) {
                 if(Math.abs(o1.y-o1.ny)+Math.abs(o1.x-o1.nx) == Math.abs(o2.y-o2.ny)+Math.abs(o2.x-o2.nx)){ //맨허튼 거리가 같다면
@@ -65,9 +88,57 @@ public class Solution_230819_박테리아 {
                 }
             }
         });
-        Queue<int[]> q = new PriorityQueue<>();
 
+        Queue<int[]> q = new PriorityQueue<>(); //실제로 생성되는 박테리아만 담아줄 q입니다.
+        pq.add(new Bac(bId, mY, mX, mY, mX, mSize, time, mTime+time));
 
+        boolean[][] visited = new boolean[Y][X];
+        visited[mY][mX] =  true;
+
+        while(!pq.isEmpty()){
+            Bac now = pq.poll(); //poll로 꺼낸다는 것 자체가 여기는 확실히 박테리아가 놓여질 수 있다는 것.
+            q.add(new int[]{now.ny, now.nx});
+
+            if(q.size() == mSize) break; //모든 박테리아를 퍼트렸음! while을 더 돌 필요가 없습니다.
+
+            for (int i = 0; i < 4; i++) {
+                int ny = now.ny + dy[i];
+                int nx = now.nx + dx[i];
+                if(0<=ny && ny<Y && 0<=nx && nx<X && !visited[ny][nx] && map[ny][nx] == 0){
+                    pq.add(new Bac(bId, mY, mX, ny, nx, mSize, time, mTime+time));
+                    visited[ny][nx] = true;
+                }
+            }
+        }
+
+        //위의 while 을 다 돌았지만 q의 크기가 채워지지 않았다면 박테리아
+        //생성 불가!
+        if(q.size()<mSize){
+            return new int[]{0,0};
+        }
+
+        int lastY = -1;
+        int lastX = -1;
+
+        DelBac delBac = new DelBac(bId, mTime+time);
+
+        //실제 놓을 수 있는 박테리아들을 map에 표시해주고,
+        //삭제를 편하게 하기위한 delBac의 리스트에 좌표를 추가해줍니다.
+        while(!q.isEmpty()){
+            int[] now = q.poll();
+            map[now[0]][now[1]] = bId;
+            delBac.list.add(new int[]{now[0],now[1]});
+
+            //q가 비었다면 현재 now 좌표가 가장 마지막에 생성된 박테리아 위치 라는 것
+            //last에 담아줍니다.
+            if(q.isEmpty()){
+                lastY = now[0];
+                lastX = now[1];
+            }
+        }
+
+        //last 좌표를 반환!
+        return new int[]{lastY, lastX};
     };
 
     //박테리아 확인
