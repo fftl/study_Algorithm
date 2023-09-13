@@ -3,7 +3,8 @@ package com.baekjoon.gold;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main_BJ_14466_G4_소가길을건너간이유6 {
@@ -22,7 +23,9 @@ public class Main_BJ_14466_G4_소가길을건너간이유6 {
 		R = Integer.parseInt(st.nextToken());
 		
 		map = new int[N+1][N+1];
-		
+
+		dir = new ArrayList<>();
+
 		//각 좌표에서 특정 방향으로 길이 있는지 없는지 기록해줍니다.
 		for (int i = 0; i < N+1; i++) {
 			dir.add(new ArrayList<boolean[]>());
@@ -40,6 +43,56 @@ public class Main_BJ_14466_G4_소가길을건너간이유6 {
 			
 			check(ay, ax, by, bx);
 		}
+		
+		ArrayList<int[]> arr = new ArrayList<>();
+		for (int i = 0; i < K; i++) {
+			st = new StringTokenizer(br.readLine());
+			int y = Integer.parseInt(st.nextToken());
+			int x = Integer.parseInt(st.nextToken());
+			
+			arr.add(new int[]{y, x});
+		}
+
+		int res = 0;
+		for (int i = 0; i < K; i++) {
+			int[] start = arr.get(i);
+			for (int j = i+1; j < K; j++) {
+				if(i==j) continue;
+				boolean arrive = false;
+				int[] end = arr.get(j);
+
+				Queue<int[]> q = new LinkedList<>();
+				boolean[][] visited = new boolean[N+1][N+1];
+
+				q.add(new int[]{start[0],start[1]});
+				visited[start[0]][start[1]] = true;
+
+				while(!q.isEmpty()){
+
+					int[] now = q.poll();
+					if(now[0] == end[0] && now[1] == end[1]){
+						arrive = true;
+						break;
+					}
+					for (int k = 0; k < 4; k++) {
+						if(dir.get(now[0]).get(now[1])[k]){
+							continue;
+						} else {
+							int ny = now[0] +dy[k];
+							int nx = now[1] +dx[k];
+							if(0<ny && ny<=N && 0<nx && nx<=N && !visited[ny][nx]){
+								q.add(new int[]{ny, nx});
+								visited[ny][nx] = true;
+							}
+						}
+					}
+				}
+
+				if(!arrive) res++;
+			}
+		}
+
+		System.out.println(res);
 	}
 
 
