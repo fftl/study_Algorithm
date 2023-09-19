@@ -1,14 +1,11 @@
-package com.baekjoon.silver;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Queue;
 
-public class Main_BJ_05397_S2_키로거 {
+public class Main {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int n = Integer.parseInt(br.readLine());
 
 		StringBuilder sb = new StringBuilder();
@@ -21,36 +18,49 @@ public class Main_BJ_05397_S2_키로거 {
 
 			int cs = 0;
 			LinkedList<Character> res = new LinkedList<>();
-			ListIterator<Character> it = res.listIterator();
 			while (!q.isEmpty()) {
 				char now = q.poll();
-				if(now=='<') {
-					if(it.hasPrevious()) {
-						it.previous();
-					}
-				} else if(now=='>') {
-					if(it.hasNext()) {
-						it.next();
-					}
-				} else if(now=='-') {
-					if(it.hasPrevious()) {
-						it.previous();
-						it.remove();
+				if (now == '<' || now == '>') {
+					cs = arrow(now, cs, res.size());
+				} else if (now == '-') {
+					if (cs > 0) {
+						res.remove(cs - 1);
+						cs--;
 					}
 				} else {
-					it.add(now);
+					if (cs == res.size()) {
+						res.add(now);
+						cs++;
+					} else {
+						res.add(cs, now);
+						cs++;
+					}
 				}
 			}
-
+			
 			for(Character cur : res) {
 				sb.append(cur);
 			}
 			sb.append("\n");
 		}
-		bw.write(sb.toString().trim());
-		bw.flush();
-		bw.close();
-		br.close();
+		System.out.println(sb.toString().trim());
 	}
 
+	static int arrow(char c, int idx, int size) {
+		if (c == '<') {
+			if (idx > 0)
+				return idx - 1;
+			else
+				return 0;
+		}
+
+		if (c == '>') {
+			if (idx < size)
+				return idx + 1;
+			else
+				return size;
+		}
+
+		return 0;
+	}
 }
