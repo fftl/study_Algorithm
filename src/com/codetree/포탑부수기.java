@@ -254,12 +254,6 @@ public class 포탑부수기 {
                 }
             }
         }
-<<<<<<< HEAD
-
-        //표적은 레이저, 포탄 상관 없이 마지막에 공격해줍니다.
-=======
-        
->>>>>>> a8b9080108a424e4819cb2f8670c6e25311bb1ab
         if(board[t.y][t.x].power - power >= 0) board[t.y][t.x].power -= power;
         else board[t.y][t.x].power = 0;
 
@@ -270,11 +264,6 @@ public class 포탑부수기 {
     static void laserAttack(int power, int hPower, String root){
         String[] roots = root.split("/");
 
-<<<<<<< HEAD
-        //0번 index는 공백, 1번 index는 attack 위치이기 때문에 건너뜁니다.
-=======
-        //0번 index는 공백, 1번 index는 attack 위치이기 때문에 건너 뛴다.
->>>>>>> a8b9080108a424e4819cb2f8670c6e25311bb1ab
         for (int i = 2; i < roots.length; i++) {
             String[] point = roots[i].split(",");
 
