@@ -33,6 +33,7 @@ public class 토끼와경주 {
         }
     }
 
+    //두개를 선언해 놓은 이유가 무엇일까?
     static TreeSet<Rabbit> set;
     static ArrayList<Rabbit> all;
     static int N, M;
@@ -78,6 +79,11 @@ public class 토끼와경주 {
     }
 
     static void run(String[] strs){
-        int key = Integer.parseInt(strs[0]);
+    	int round = Integer.parseInt(strs[1]); //라운드 수
+    	
+    	//각 라운드를 진행합니다.
+    	for (int i = 0; i < round; i++) {
+			
+		}
     }
 }
