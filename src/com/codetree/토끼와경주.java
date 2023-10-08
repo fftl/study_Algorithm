@@ -36,7 +36,10 @@ public class 토끼와경주 {
     //두개를 선언해 놓은 이유가 무엇일까?
     static TreeSet<Rabbit> set;
     static ArrayList<Rabbit> all;
-    static int N, M;
+    static int N, M, sumPoint;
+    static int[] dy = {-1, 1, 0, 0};
+    static int[] dx = {0, 0, -1, 1};
+
 
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -65,12 +68,13 @@ public class 토끼와경주 {
 
         N = Integer.parseInt(strs[1]);
         M = Integer.parseInt(strs[2]);
+        sumPoint = 0;
 
         int t = Integer.parseInt(strs[3]);
 
         int idx = 4;
         while(idx<strs.length){
-            all.add(new Rabbit(0, 0, 0, Integer.parseInt(strs[idx++]), Integer.parseInt(strs[idx++])));
+            all.add(new Rabbit(0, 1, 1, Integer.parseInt(strs[idx++]), Integer.parseInt(strs[idx++])));
         }
         for (Rabbit r : all) set.add(r);
     }
@@ -83,7 +87,11 @@ public class 토끼와경주 {
     	
     	//각 라운드를 진행합니다.
     	for (int i = 0; i < round; i++) {
-			
+            Rabbit rabbit = set.pollFirst(); //우선순위에 따라 이번에 이동해야 할 토끼를 뽑습니다.
+
+            for (int j = 0; j < 4; j++) {
+
+            }
 		}
     }
 }
