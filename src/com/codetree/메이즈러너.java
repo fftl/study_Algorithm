@@ -3,6 +3,7 @@ package com.codetree;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -13,6 +14,7 @@ public class 메이즈러너 {
     static int[] dy = {-1, 1, 0, 0};
     static int[] dx = {0, 0, -1, 1};
     static int[][] map;
+    static int[][] copy;
     static Exit exit;
     static HashMap<Integer, Person> person;
 
@@ -82,7 +84,8 @@ public class 메이즈러너 {
             int nx = Integer.parseInt(st.nextToken())-1;
             person.put(i, new Person(ny, nx, i, 0, false));
         }
-
+        
+        System.out.println(person.toString());
         st = new StringTokenizer(br.readLine());
         int exitY = Integer.parseInt(st.nextToken());
         int exitX = Integer.parseInt(st.nextToken());
@@ -105,6 +108,7 @@ public class 메이즈러너 {
         }
     }
 
+    //이미 여기서 잘못됨.
     static void run(){
         for(int idx : person.keySet()){
             Person now = person.get(idx);
@@ -161,28 +165,101 @@ public class 메이즈러너 {
     	}
 
     	Person nPerson = near.poll();
+    	System.out.println("find()에서 사람은 제대로 구하나 확인!!");
+    	System.out.println(nPerson.toString());
 
     	//출구와 가장 가까운 사람을 구하는 것 까지는 확인함.
     	int yCha = Math.abs(exit.y-nPerson.y);
     	int xCha = Math.abs(exit.x-nPerson.x);
-
+    	int stX = -1;
+    	int stY = -1;
+    	int edX = -1;
+    	int edY = -1;
+    	
         //y축의 거리가 더 클 때
         if(yCha>xCha){
-
+        	System.out.println("경우 1");
+        	//상단의 Y값을 찾음.
+        	int minY = Math.min(nPerson.y, exit.y);
+        	int maxX = Math.max(nPerson.x, exit.x);
+        	
+        	stX = maxX-yCha>=0 ? maxX-yCha : 0;
+        	stY = minY;
+        	
+        	edX = stX+yCha;
+        	edY = stY+yCha;
+        			
         } else if(xCha>yCha) {
-
+        	System.out.println("경우 2");
+        	//상단의 Y값을 찾음.
+        	int minX = Math.min(nPerson.x, exit.x);
+        	int maxY = Math.max(nPerson.y, exit.y);
+        	
+        	stY = maxY-xCha>=0 ? maxY-xCha : 0;
+        	stX = minX;
+        	
+        	edX = stX+xCha;
+        	edY = stY+xCha;
+        	
         } else {
-
+        	System.out.println("경우 3");
+        	stY = Math.min(nPerson.y, exit.y);
+        	stX = Math.min(nPerson.x, exit.x);
+        	
+        	edX = stX+xCha;
+        	edY = stY+xCha;
         }
-
-
+        
+        turnBoard(new int[] {stY, stX}, new int[] {edX, edY});
     }
 
-    static void turnBoard(){
-
+    //정사각형을 회전 시켜 줌
+    static void turnBoard(int[] a, int[] b){
+    	System.out.println("########### turnBoard 실행");
+    	System.out.println(Arrays.toString(a));
+    	System.out.println(Arrays.toString(b));
+    	System.out.println("########### 출발 도착 좌표 출력");
+    	copy = new int[N][N];
+    	
+    	int size = b[0]-a[0];
+    	int num = 0;
+    	
+    	for (int i = a[0]; i <= b[0]; i++) {
+			for (int j = a[1]; j <= b[1]; j++) {
+				if(map[i][j]>0) {
+					copy[j][size-num] = map[i][j]-1;
+				}
+			}
+			num++;
+		}
+    	
+    	turnPrint(copy);
+    }
+    
+    static void turnPrint(int[][] copy) {
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				sb.append(map[i][j]+" ");
+			}
+			sb.append("\n");
+		}
+    	
+    	sb.append("\n");
+    	sb.append("\n");
+    	
+    	for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				sb.append(copy[i][j]+" ");
+			}
+			sb.append("\n");
+		}
+    	
+    	System.out.println(sb.toString().trim());
     }
 
-    static void turnPerson() {
+    //정사각형 안의 사람들을 회전시켜 줌
+    static void turnPerson(int[] a, int[] b) {
 
     }
 }
