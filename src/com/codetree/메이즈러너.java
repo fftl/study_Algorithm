@@ -2,12 +2,7 @@ package com.codetree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class 메이즈러너 {
     static int N, M, K;
@@ -87,8 +82,8 @@ public class 메이즈러너 {
         
         System.out.println(person.toString());
         st = new StringTokenizer(br.readLine());
-        int exitY = Integer.parseInt(st.nextToken());
-        int exitX = Integer.parseInt(st.nextToken());
+        int exitY = Integer.parseInt(st.nextToken())-1;
+        int exitX = Integer.parseInt(st.nextToken())-1;
         exit = new Exit(exitY, exitX);
 
         for (int i = 0; i < K; i++){
@@ -110,6 +105,8 @@ public class 메이즈러너 {
 
     //이미 여기서 잘못됨.
     static void run(){
+        System.out.println("현재 exit 의 좌표를 확인해보자");
+        System.out.println(exit.toString());
         for(int idx : person.keySet()){
             Person now = person.get(idx);
             int dis = distance(now.y, now.x);
@@ -123,6 +120,10 @@ public class 메이즈러너 {
 				//일단 맵 위에 있으며 벽이 아닐 경우만 판단합니다.
 				if(0<=ny && ny<N && 0<=nx && nx<N && map[ny][nx] == 0) {
 					if(dis>distance(ny, nx)) {
+                        System.out.println("어떻게 들어오는지 확인해보자 ---");
+                        System.out.println(dis);
+                        System.out.println(distance(ny, nx));
+
 						now.y = ny;
 						now.x = nx;
 						now.len++;
@@ -260,6 +261,21 @@ public class 메이즈러너 {
 
     //정사각형 안의 사람들을 회전시켜 줌
     static void turnPerson(int[] a, int[] b) {
+        ArrayList<Integer> moveList = new ArrayList<>();
+        for(Integer p : person.keySet()){
+            Person now = person.get(p);
+            if((a[0] <= now.y && now.y <=b[0]) || (a[1] <= now.x && now.x <= b[1])){
+                moveList.add(now.id);
+            }
+        }
 
+        int size = b[0]-a[0];
+        int num = 0;
+
+        for (int i = a[0]; i <= b[0]; i++) {
+            for (int j = a[1]; j <= b[1]; j++) {
+            }
+            num++;
+        }
     }
 }
