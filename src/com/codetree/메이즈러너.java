@@ -25,17 +25,18 @@ public class 메이즈러너 {
             this.escape = escape;
         }
 
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder("Person{");
-            sb.append("y=").append(y);
-            sb.append(", x=").append(x);
-            sb.append(", id=").append(id);
-            sb.append(", len=").append(len);
-            sb.append('}');
-            return sb.toString();
-        }
-    }
+		@Override
+		public String toString() {
+			final StringBuilder sb = new StringBuilder("Person{");
+			sb.append("y=").append(y);
+			sb.append(", x=").append(x);
+			sb.append(", id=").append(id);
+			sb.append(", len=").append(len);
+			sb.append(", escape=").append(escape);
+			sb.append('}');
+			return sb.toString();
+		}
+	}
 
     static class Exit{
         int y, x;
@@ -87,28 +88,51 @@ public class 메이즈러너 {
         exit = new Exit(exitY, exitX);
 
         for (int i = 0; i < K; i++){
-
+			System.out.println("==========================================================");
+			System.out.println("exit 위치 >> "+exit.toString());
         	//각자 사람들은 출구와 가까운 쪽으로 이동할 수 있다면 이동합니다.
             run();
 
             //사람이 모두 탈출했는지 확인 해야함.
+			if(endCheck()) break;
 
             //출구와 한 명 이상의 참가자가 포함된 가장 작은 정사각형을 구합니다.
             find();
 
             //이동을 끝냈으면 미로를 회전시킵니다.
 //            turn();
-
-
         }
+
+		System.out.println(result());
     }
+
+	static String result(){
+		StringBuilder sb = new StringBuilder();
+		int res = 0;
+		for(int idx : person.keySet()) {
+			res += person.get(idx).len;
+		}
+
+		sb.append(res+"\n");
+		sb.append(exit.y + " " + exit.x);
+
+		return sb.toString().trim();
+	}
+
+	static boolean endCheck(){
+		for(int idx : person.keySet()) {
+			if(!person.get(idx).escape) return false;
+		}
+
+		return true;
+	}
 
     //이미 여기서 잘못됨.
     static void run(){
-        System.out.println("현재 exit 의 좌표를 확인해보자");
-        System.out.println(exit.toString());
         for(int idx : person.keySet()){
             Person now = person.get(idx);
+			if(now.escape) continue;
+
             int dis = distance(now.y, now.x);
 
             boolean move = false;
@@ -120,18 +144,19 @@ public class 메이즈러너 {
 				//일단 맵 위에 있으며 벽이 아닐 경우만 판단합니다.
 				if(0<=ny && ny<N && 0<=nx && nx<N && map[ny][nx] == 0) {
 					if(dis>distance(ny, nx)) {
-                        System.out.println("어떻게 들어오는지 확인해보자 ---");
-                        System.out.println(dis);
-                        System.out.println(distance(ny, nx));
-
 						now.y = ny;
 						now.x = nx;
 						now.len++;
+						if(now.y == exit.y && now.x == exit.x){
+							now.escape = true;
+						}
 						move = true;
 					}
 				}
 			}
         }
+
+		System.out.println("턴이 끝날 때 person 확인 >> \n" + person.toString());
     }
 
     //exit와의 거리를 반환해줍니다.
@@ -166,8 +191,8 @@ public class 메이즈러너 {
     	}
 
     	Person nPerson = near.poll();
-    	System.out.println("find()에서 사람은 제대로 구하나 확인!!");
-    	System.out.println(nPerson.toString());
+//    	System.out.println("find()에서 사람은 제대로 구하나 확인!!");
+//    	System.out.println(nPerson.toString());
 
     	//출구와 가장 가까운 사람을 구하는 것 까지는 확인함.
     	int yCha = Math.abs(exit.y-nPerson.y);
@@ -179,7 +204,6 @@ public class 메이즈러너 {
     	
         //y축의 거리가 더 클 때
         if(yCha>xCha){
-        	System.out.println("경우 1");
         	//상단의 Y값을 찾음.
         	int minY = Math.min(nPerson.y, exit.y);
         	int maxX = Math.max(nPerson.x, exit.x);
@@ -191,7 +215,6 @@ public class 메이즈러너 {
         	edY = stY+yCha;
         			
         } else if(xCha>yCha) {
-        	System.out.println("경우 2");
         	//상단의 Y값을 찾음.
         	int minX = Math.min(nPerson.x, exit.x);
         	int maxY = Math.max(nPerson.y, exit.y);
@@ -203,16 +226,16 @@ public class 메이즈러너 {
         	edY = stY+xCha;
         	
         } else {
-        	System.out.println("경우 3");
         	stY = Math.min(nPerson.y, exit.y);
         	stX = Math.min(nPerson.x, exit.x);
         	
         	edX = stX+xCha;
         	edY = stY+xCha;
         }
-        
-        turnBoard(new int[] {stY, stX}, new int[] {edX, edY});
-        turnPerson(new int[] {stY, stX}, new int[] {edX, edY});
+
+
+        turnBoard(new int[] {stY, stX}, new int[] {edY, edX});
+        turnPerson(new int[] {stY, stX}, new int[] {edY, edX});
         printNow();
     }
 
@@ -230,7 +253,7 @@ public class 메이즈러너 {
     	for (int i = a[0]; i <= b[0]; i++) {
 			for (int j = a[1]; j <= b[1]; j++) {
 				if(map[i][j]>0) {
-					copy[j][size-num] = map[i][j]-1;
+					copy[j+a[0]][size-num+a[1]] = map[i][j]-1;
 				}
 			}
 			num++;
@@ -242,58 +265,42 @@ public class 메이즈러너 {
 			}
 			num++;
 		}
-    	
-    	turnPrint(copy);
     }
 
     //정사각형 안의 사람들을 회전시켜 줌
     static void turnPerson(int[] a, int[] b) {
-        int size = b[0]-a[0];
-        int num = 0;
+		int size = b[0] - a[0];
+		int num = 0;
+		boolean exitMove = false;
+		HashSet<Integer> move = new HashSet<>();
 
-        for (int i = a[0]; i <= b[0]; i++) {
-            for (int j = a[1]; j <= b[1]; j++) {
-            	for (int key : person.keySet()) {
+		for (int i = a[0]; i <= b[0]; i++) {
+			for (int j = a[1]; j <= b[1]; j++) {
+				for (int key : person.keySet()) {
 					Person now = person.get(key);
-					System.out.println("지금 사람 정보는? >> "+now.toString());
-					if(i==now.y && j==now.x) {
-						System.out.println("사람수몇명!!!!!!!!!!!!!!!!!!!!!!!");
-						now.y = j;
-						now.x = size-num;
-					} else if (i==exit.y && j==exit.x) {
-						exit.y = j;
-						exit.x = size-num;
+					if(now.escape) continue;
+					if (i == now.y && j == now.x) {
+						if (!move.contains(now.id)) {
+							System.out.println("여기서 >> "+i+","+j);
+							now.y = j + a[0];
+							now.x = size - num + a[1];
+							move.add(now.id);
+							System.out.println("여기로 >> "+now.y+","+now.x);
+						}
+					}
+					if (i == exit.y && j == exit.x && !exitMove) {
+						exit.y = j + (b[1]-a[1]);
+						exit.x = size - num + a[1];
+						exitMove = true;
 					}
 				}
-            }
-            num++;
-        }
-        
-        System.out.println(person);
-    }
-    
-    static void turnPrint(int[][] copy) {
-    	StringBuilder sb = new StringBuilder();
-    	for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				sb.append(map[i][j]+" ");
 			}
-			sb.append("\n");
+			num++;
 		}
-    	
-    	sb.append("\n");
-    	sb.append("\n");
-    	
-    	for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				sb.append(copy[i][j]+" ");
-			}
-			sb.append("\n");
-		}
-    	
-    	System.out.println(sb.toString().trim());
-    }
-    
+
+		System.out.println(person);
+	}
+
     static void printNow() {
     	int[][] justPrint = new int[N][N];
     	StringBuilder sb = new StringBuilder();
@@ -302,22 +309,23 @@ public class 메이즈러너 {
 				justPrint[i][j] = map[i][j];
 			}
 		}
-    	
+
     	for(int key : person.keySet()) {
     		Person now = person.get(key);
+			if(now.escape) continue;
     		justPrint[now.y][now.x] = -9;
     	}
-    	
+
     	justPrint[exit.y][exit.x] = -4;
-    	
-    	
+
+
     	for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				sb.append(justPrint[i][j]+" ");
 			}
 			sb.append("\n");
 		}
-    	
+
     	System.out.println(sb.toString().trim());
     }
 }
