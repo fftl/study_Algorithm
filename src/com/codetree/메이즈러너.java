@@ -212,6 +212,8 @@ public class 메이즈러너 {
         }
         
         turnBoard(new int[] {stY, stX}, new int[] {edX, edY});
+        turnPerson(new int[] {stY, stX}, new int[] {edX, edY});
+        printNow();
     }
 
     //정사각형을 회전 시켜 줌
@@ -234,7 +236,40 @@ public class 메이즈러너 {
 			num++;
 		}
     	
+    	for (int i = a[0]; i <= b[0]; i++) {
+			for (int j = a[1]; j <= b[1]; j++) {
+				map[i][j] = copy[i][j];
+			}
+			num++;
+		}
+    	
     	turnPrint(copy);
+    }
+
+    //정사각형 안의 사람들을 회전시켜 줌
+    static void turnPerson(int[] a, int[] b) {
+        int size = b[0]-a[0];
+        int num = 0;
+
+        for (int i = a[0]; i <= b[0]; i++) {
+            for (int j = a[1]; j <= b[1]; j++) {
+            	for (int key : person.keySet()) {
+					Person now = person.get(key);
+					System.out.println("지금 사람 정보는? >> "+now.toString());
+					if(i==now.y && j==now.x) {
+						System.out.println("사람수몇명!!!!!!!!!!!!!!!!!!!!!!!");
+						now.y = j;
+						now.x = size-num;
+					} else if (i==exit.y && j==exit.x) {
+						exit.y = j;
+						exit.x = size-num;
+					}
+				}
+            }
+            num++;
+        }
+        
+        System.out.println(person);
     }
     
     static void turnPrint(int[][] copy) {
@@ -258,24 +293,31 @@ public class 메이즈러너 {
     	
     	System.out.println(sb.toString().trim());
     }
-
-    //정사각형 안의 사람들을 회전시켜 줌
-    static void turnPerson(int[] a, int[] b) {
-        ArrayList<Integer> moveList = new ArrayList<>();
-        for(Integer p : person.keySet()){
-            Person now = person.get(p);
-            if((a[0] <= now.y && now.y <=b[0]) || (a[1] <= now.x && now.x <= b[1])){
-                moveList.add(now.id);
-            }
-        }
-
-        int size = b[0]-a[0];
-        int num = 0;
-
-        for (int i = a[0]; i <= b[0]; i++) {
-            for (int j = a[1]; j <= b[1]; j++) {
-            }
-            num++;
-        }
+    
+    static void printNow() {
+    	int[][] justPrint = new int[N][N];
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				justPrint[i][j] = map[i][j];
+			}
+		}
+    	
+    	for(int key : person.keySet()) {
+    		Person now = person.get(key);
+    		justPrint[now.y][now.x] = -9;
+    	}
+    	
+    	justPrint[exit.y][exit.x] = -4;
+    	
+    	
+    	for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				sb.append(justPrint[i][j]+" ");
+			}
+			sb.append("\n");
+		}
+    	
+    	System.out.println(sb.toString().trim());
     }
 }
