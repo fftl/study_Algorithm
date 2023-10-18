@@ -251,22 +251,11 @@ public class 메이즈러너 {
         int size = b[0]-a[0];
         int num = 0;
 
-        for (int i = a[0]; i <= b[0]; i++) {
-            for (int j = a[1]; j <= b[1]; j++) {
-            	for (int key : person.keySet()) {
-					Person now = person.get(key);
-					System.out.println("지금 사람 정보는? >> "+now.toString());
-					if(i==now.y && j==now.x) {
-						System.out.println("사람수몇명!!!!!!!!!!!!!!!!!!!!!!!");
-						now.y = j;
-						now.x = size-num;
-					} else if (i==exit.y && j==exit.x) {
-						exit.y = j;
-						exit.x = size-num;
-					}
-				}
-            }
-            num++;
+        for(int idx : person.keySet()) {
+        	Person now = person.get(idx);
+        	if((a[0] <= now.y && now.y <= b[0]) && (a[1] <= now.x && now.x <= b[1])){
+        		
+        	}
         }
         
         System.out.println(person);
