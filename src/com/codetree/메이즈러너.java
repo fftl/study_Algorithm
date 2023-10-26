@@ -2,7 +2,12 @@ package com.codetree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
 public class 메이즈러너 {
     static int N, M, K;
@@ -81,26 +86,29 @@ public class 메이즈러너 {
             person.put(i, new Person(ny, nx, i, 0, false));
         }
         
-        System.out.println(person.toString());
+//        System.out.println(person.toString());
         st = new StringTokenizer(br.readLine());
         int exitY = Integer.parseInt(st.nextToken())-1;
         int exitX = Integer.parseInt(st.nextToken())-1;
         exit = new Exit(exitY, exitX);
 
         for (int i = 0; i < K; i++){
-			System.out.println("==========================================================");
+			System.out.println((i+1)+"번 정보 시작==========================================================");
 			System.out.println("exit 위치 >> "+exit.toString());
+			System.out.println("이동하기 전 >>>");
+			printNow();
         	//각자 사람들은 출구와 가까운 쪽으로 이동할 수 있다면 이동합니다.
             run();
 
             //사람이 모두 탈출했는지 확인 해야함.
-			if(endCheck()) break;
+			if(endCheck()) {
+				break;
+			}
 
             //출구와 한 명 이상의 참가자가 포함된 가장 작은 정사각형을 구합니다.
             find();
-
-            //이동을 끝냈으면 미로를 회전시킵니다.
-//            turn();
+            System.out.println("이동한 후 >>>");
+            printNow();
         }
 
 		System.out.println(result());
@@ -114,7 +122,7 @@ public class 메이즈러너 {
 		}
 
 		sb.append(res+"\n");
-		sb.append(exit.y + " " + exit.x);
+		sb.append((exit.y+1) + " " + (exit.x+1));
 
 		return sb.toString().trim();
 	}
@@ -156,7 +164,7 @@ public class 메이즈러너 {
 			}
         }
 
-		System.out.println("턴이 끝날 때 person 확인 >> \n" + person.toString());
+//		System.out.println("턴이 끝날 때 person 확인 >> \n" + person.toString());
     }
 
     //exit와의 거리를 반환해줍니다.
@@ -165,17 +173,15 @@ public class 메이즈러너 {
     }
 
     static void find(){
+    	System.out.println(person);
     	PriorityQueue<Person> near = new PriorityQueue<>(new Comparator<Person>() {
     		@Override
     		public int compare(Person a, Person b) {
-    			if(a.y==b.y) {
-    				return a.x-b.x;
-    			}
-    			return a.y-b.y;
+    			return Math.abs(a.y, b.y) - Math.abs(a.x, b.x);
     		}
 		});
 
-    	int len = 10;
+    	int len = N*N;
 
     	//일단 가장 가까운 사람들을 찾습니다.
     	for(int idx : person.keySet()) {
@@ -189,11 +195,13 @@ public class 메이즈러너 {
     			near.add(now);
     		}
     	}
-
+    	
+    	System.out.println("near 정보 출력 >> " + near);
     	Person nPerson = near.poll();
 //    	System.out.println("find()에서 사람은 제대로 구하나 확인!!");
 //    	System.out.println(nPerson.toString());
-
+    	System.out.println(nPerson.toString());
+    	
     	//출구와 가장 가까운 사람을 구하는 것 까지는 확인함.
     	int yCha = Math.abs(exit.y-nPerson.y);
     	int xCha = Math.abs(exit.x-nPerson.x);
@@ -201,6 +209,7 @@ public class 메이즈러너 {
     	int stY = -1;
     	int edX = -1;
     	int edY = -1;
+    	
     	
         //y축의 거리가 더 클 때
         if(yCha>xCha){
@@ -236,7 +245,7 @@ public class 메이즈러너 {
 
         turnBoard(new int[] {stY, stX}, new int[] {edY, edX});
         turnPerson(new int[] {stY, stX}, new int[] {edY, edX});
-        printNow();
+//        printNow();
     }
 
     //정사각형을 회전 시켜 줌
@@ -250,10 +259,10 @@ public class 메이즈러너 {
     	int size = b[0]-a[0];
     	int num = 0;
     	
-    	for (int i = a[0]; i <= b[0]; i++) {
-			for (int j = a[1]; j <= b[1]; j++) {
+    	for (int i = a[0], i2 = 0; i <= b[0]; i++, i2++) {
+			for (int j = a[1], j2 = 0; j <= b[1]; j++, j2++) {
 				if(map[i][j]>0) {
-					copy[j+a[0]][size-num+a[1]] = map[i][j]-1;
+					copy[a[0]+j2][b[1]-i2] = map[i][j]-1;
 				}
 			}
 			num++;
@@ -274,23 +283,26 @@ public class 메이즈러너 {
 		boolean exitMove = false;
 		HashSet<Integer> move = new HashSet<>();
 
-		for (int i = a[0]; i <= b[0]; i++) {
-			for (int j = a[1]; j <= b[1]; j++) {
+
+//		copy[a[0]+j2][b[1]-i2] = map[i][j]-1;
+		
+		for (int i = a[0], i2 = 0; i <= b[0]; i++, i2++) {
+			for (int j = a[1], j2 = 0; j <= b[1]; j++, j2++) {
 				for (int key : person.keySet()) {
 					Person now = person.get(key);
 					if(now.escape) continue;
 					if (i == now.y && j == now.x) {
 						if (!move.contains(now.id)) {
-							System.out.println("여기서 >> "+i+","+j);
-							now.y = j + a[0];
-							now.x = size - num + a[1];
+//							System.out.println("여기서 >> "+i+","+j);
+							now.y = a[0]+j2;
+							now.x = b[1]-i2;
 							move.add(now.id);
-							System.out.println("여기로 >> "+now.y+","+now.x);
+//							System.out.println("여기로 >> "+now.y+","+now.x);
 						}
 					}
 					if (i == exit.y && j == exit.x && !exitMove) {
-						exit.y = j + (b[1]-a[1]);
-						exit.x = size - num + a[1];
+						exit.y = a[0]+j2;
+						exit.x = b[1]-i2;
 						exitMove = true;
 					}
 				}
@@ -298,7 +310,7 @@ public class 메이즈러너 {
 			num++;
 		}
 
-		System.out.println(person);
+//		System.out.println(person);
 	}
 
     static void printNow() {
