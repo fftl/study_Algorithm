@@ -24,12 +24,14 @@ public class Main_BJ_02042_G1_구간합구하기 {
 			if(start == end) {
 				return tree[node] = arr[start];
 			}
-			
+
+			//현재 노드의 왼쪽아래 + 오른쪽 아래 노드의 합을 리턴.
 			return tree[node] = init(arr, node*2, start, (start+end)/2) +
 					init(arr, node*2+1, (start+end)/2+1, end);
 		}
 		
 		//중간의 값이 변경되는 것을 표현합니다.
+		//무슨 연산을 하던 node는 1부터 시작합니다.
 		public void update(int node, int start, int end, int idx, long diff) {
 			//변경될 값의 idx가 범위를 벗어날 경우 종료합니다.
 			if(idx < start || end < idx) return;
