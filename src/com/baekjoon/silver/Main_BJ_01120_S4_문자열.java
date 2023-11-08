@@ -2,7 +2,6 @@ package com.baekjoon.silver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main_BJ_01120_S4_문자열 {
