@@ -8,28 +8,10 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main_BJ_20924_G4_트리의기둥과가지 {
-
 	static int N, R, giga, gigaLen, maxLen;
 	static ArrayList<ArrayList<Node>> arr;
-
-	public static class Sum{
-		int now, sum;
-
-		public Sum(int now, int sum) {
-			this.now = now;
-			this.sum = sum;
-		}
-
-		@Override
-		public String toString() {
-			final StringBuilder sb = new StringBuilder("Sum{");
-			sb.append("now=").append(now);
-			sb.append(", sum=").append(sum);
-			sb.append('}');
-			return sb.toString();
-		}
-	}
-
+	static boolean[] visited;
+	
 	public static class Node{
 		int e, k;
 
@@ -72,52 +54,63 @@ public class Main_BJ_20924_G4_트리의기둥과가지 {
 			int e = Integer.parseInt(st.nextToken());
 			int k = Integer.parseInt(st.nextToken());
 
-			arr.get(Math.min(s, e)).add(new Node(Math.max(s, e), k));
+			arr.get(s).add(new Node(e, k));
+			arr.get(e).add(new Node(s, k));
 		}
-
+		
+		visited = new boolean[N+1];
 		findGiga();
-		findFar();
-		System.out.println(gigaLen+" "+maxLen);
+		findMaxLen();
+		
+		System.out.println(gigaLen);
+		System.out.println(maxLen);
 	}
-
-	static void findFar(){
-		Queue<Sum> q = new LinkedList<>();
-		q.add(new Sum(giga, 0));
-
-		while(!q.isEmpty()){
-			Sum now = q.poll();
-			maxLen = Math.max(maxLen, now.sum);
-
-			for(Node n : arr.get(now.now)){
-				q.add(new Sum(n.e, n.k+now.sum));
+	
+	static void findMaxLen() {
+		Queue<int[]> q = new LinkedList<>();
+		q.add(new int[] {giga, 0});
+		visited[giga] = true;
+		
+		while(!q.isEmpty()) {
+			
+			int[] now = q.poll();
+			
+			maxLen = Math.max(maxLen, now[1]);
+			
+			ArrayList<Node> nowNodes = arr.get(now[0]);
+			for(Node n : nowNodes) {
+				if(visited[n.e]) continue;
+				
+				visited[n.e] = true;
+				q.add(new int[] {n.e, now[1]+n.k});
 			}
 		}
 	}
 
-	static void findGiga(){
-		if(arr.get(R).size()>1){
-			giga = R;
-			gigaLen = 0;
-		} else {
-			Node root = arr.get(R).get(0);
-
-			gigaLen += root.k;
-
-			Queue<Node> q = new LinkedList<>();
-			q.add(root);
-			while(true){
-				Node now = q.poll();
-
-				if(arr.get(now.e).size()==1){
-					q.add(arr.get(now.e).get(0));
-					gigaLen += arr.get(now.e).get(0).k;
-				} else {
-					giga = now.e;
-					break;
+	static void findGiga() {
+		Queue<int[]> q = new LinkedList<>();
+		q.add(new int[] {R, 0});
+		visited[R] = true;
+		
+		while(!q.isEmpty()) {
+			if(q.size() == 1) {
+				int[] now = q.poll();
+				
+				giga = now[0];
+				gigaLen = now[1];
+				
+				ArrayList<Node> nowNodes = arr.get(now[0]);
+				for(Node n : nowNodes) {
+					if(visited[n.e]) continue;
+					visited[n.e] = true;
+					q.add(new int[] {n.e, now[1]+n.k});
 				}
+			} else {
+				while(!q.isEmpty()) {
+					visited[q.poll()[0]] = false;
+				}
+				break;
 			}
 		}
 	}
-
-
 }
