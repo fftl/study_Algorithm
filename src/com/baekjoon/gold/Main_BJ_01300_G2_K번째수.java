@@ -1,26 +1,57 @@
 package com.baekjoon.gold;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main_BJ_01300_G2_K번째수 {
+	static long n, k;
 
 	public static void main(String[] args) throws Exception{
 
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		long k = sc.nextInt();
-		
-		long[][] board = new long[n+1][n+1];
-		
-		for (int i = 1; i <= n; i++) {
-			for (int j = i; j <= n; j++) {
-				board[i][j] = i*j;
+		n = sc.nextLong();
+		k = sc.nextLong();
+		long answer = 0;
+		long left = 1;
+		long right = n*n;
+		boolean key = false;
+		while(left<right){
+			long mid = (left+right) / 2;
+			long cnt = count(mid);
+
+			if(k<=cnt){
+				right = mid;
+			} else {
+				left = mid +1;
 			}
 		}
-		
-		System.out.println(Arrays.deepToString(board));
+
+		if(!key) answer = left;
+
+		System.out.println(answer);
 		sc.close();
+	}
+
+	static long count(long num){
+		long cnt = 0;
+		for(long i=1; i<=num; i++){
+			if(num/i==0 || n<i) break;
+			if(i*n<=num){
+				cnt += n;
+			} else {
+				cnt += num / i;
+			}
+		}
+		return cnt;
+	}
+
+	static void print(int[][] board){
+		StringBuilder sb = new StringBuilder();
+		for(int j=1; j<board.length; j++){
+			for(int k=1; k<board.length; k++){
+				sb.append(board[j][k]+" ");
+			}
+			sb.append("\n");
+		}
+		System.out.println(sb.toString());
 	}
 }

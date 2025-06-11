@@ -12,7 +12,7 @@ public class Solution_SW_D3_01208_Flatten {
 	//그래서 매번 Array.sort를 해주어도 문제가 없을 것이라 생각했습니다.
 	
 	public static void main(String args[]) throws IOException {
-//		System.setIn(new FileInputStream("res/sw_input_1208.txt")); //input 가져오기
+		System.setIn(new FileInputStream("res/sw_input_1208.txt")); //input 가져오기
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int T = 10;
