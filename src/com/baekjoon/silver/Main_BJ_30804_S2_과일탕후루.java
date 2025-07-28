@@ -1,9 +1,8 @@
-package com.baekjoon;
+package com.baekjoon.silver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class Main_BJ_30804_S2_과일탕후루 {
